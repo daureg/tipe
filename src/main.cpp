@@ -6,18 +6,16 @@
 int main(int argc, char *argv[])
 {
 
-    SDL_Surface *ecran = NULL, *texte = NULL, *fond = NULL;
+    SDL_Surface *ecran = NULL;
     SDL_Rect position;
     SDL_Event event;
-    TTF_Font *police = NULL;
     bool continuer = 1;
 
 
     SDL_Init(SDL_INIT_VIDEO);
-    TTF_Init();
 
     ecran = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
-    SDL_WM_SetCaption("Simple test"), NULL);
+    SDL_WM_SetCaption("Simple test", NULL);
 
     while (continuer)
     {

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.4)
+cmake_minimum_required(VERSION 2.6)
 PROJECT(Astrée)
 SET(CMAKE_MODULE_PATH ${CMAKE_HOME_DIRECTORY}/cmake)
 FIND_PACKAGE(SDL REQUIRED)

@@ -1,9 +1,10 @@
 #include "circle.h"
+Circle::Circle(): m_pos_x(0),m_pos_y(0),m_radius(5), m_red(255),m_blue(0),m_green(0), m_alpha(255) {}
 Circle::Circle( Uint16 x, Uint16 y, Uint16 radius,
 	       	Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha):
        m_pos_x(Clamp(x,0,2000)),m_pos_y(Clamp(y,0,2000)),m_radius(Clamp(radius,0,2000)),
 	m_red(Clamp(red,0,255)),m_blue(Clamp(blue,0,255)),m_green(Clamp(green,0,255)),
-	m_alpha(Clamp(alpha,0,255)),m_time_to_east(0.0f) {}
+	m_alpha(Clamp(alpha,0,255)) {}
 Circle::~Circle() {}
 Uint16 Circle::GetPosX() const {
 	return m_pos_x;

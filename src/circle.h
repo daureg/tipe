@@ -7,6 +7,7 @@
 
 class Circle : public Object {
 	public:
+		Circle();
 		Circle(Uint16, Uint16, Uint16, Uint8, Uint8, Uint8, Uint8);
 		~Circle();
 		virtual void Draw(SDL_Surface*);
@@ -34,6 +35,5 @@ class Circle : public Object {
 		Uint8 m_blue;
 		Uint8 m_green;
 		Uint8 m_alpha;
-		float m_time_to_east;
 };
 #endif

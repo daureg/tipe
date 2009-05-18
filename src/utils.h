@@ -1,7 +1,10 @@
 #ifndef __UTILS
 #define __UTILS
+
 #include "conf.h"
-void ProjectionToSDL(Uint16,Uint16,Uint16,Uint16);
+
+const float EPSILON = 0.0005f;
+
 inline int Clamp(int value,int min, int max) {
 	if (value > max)
 		return max;
@@ -21,5 +24,11 @@ inline int Random(int min, int max) {
 }
 inline float Random(float min, float max) {
 	return float((rand()/RAND_MAX)*(max-min)+min);
+}
+inline bool cmp(float a, float b) {
+	if (a > b-EPSILON && a < b+EPSILON)
+		return true;
+	else
+		return false;
 }
 #endif

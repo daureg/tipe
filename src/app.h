@@ -1,9 +1,9 @@
 #ifndef __APP
 #define __APP
 #include "conf.h"
-#include "object.h"
 #include "circle.h"
 #include "input.h"
+#include "cube.h"
 #include <vector>
 #include <time.h>
 #include <SDL_gfxPrimitives.h>
@@ -25,5 +25,7 @@ class App {
 		user_input m_input;
 		Circle m_circle;
 		Uint32 m_time;
+		Cube m_cube;
+		Cam m_cam;
 };
 #endif

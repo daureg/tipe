@@ -1,7 +1,6 @@
 #include "app.h"
 App::App(Conf *option):m_circle( 300,300,60,255,0,0,255),m_time(SDL_GetTicks()) {
 	SDL_Init(SDL_INIT_VIDEO);
-	//SDL_EnableKeyRepeat(10, 10);
 	srand((unsigned)time(NULL));
 	m_screen = SDL_SetVideoMode(option->GetIntOption(ORES_X),
 			option->GetIntOption(ORES_Y), 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
@@ -13,6 +12,16 @@ App::App(Conf *option):m_circle( 300,300,60,255,0,0,255),m_time(SDL_GetTicks()) 
 	AddAnimObject(&m_circle);
 	AddInputObject(&m_circle);
 	m_input.east.active=false;
+
+	Vector4 p=Vector4(0.0f,0.0f,0.0f,1);
+	m_cube.SetCenter(p);
+	Vector4 pc=Vector4(4.0f,-5.0f,-8.0f,1);
+	m_cam.SetPos(pc);
+	m_cam.SetRotX(-0.5f);
+	m_cam.SetRotY(0.5f);
+	m_cube.SetCam(&m_cam);
+	m_cube.GetCenter().Print();
+
 }
 App::~App() {
 	SDL_FreeSurface(m_screen);
@@ -31,8 +40,9 @@ int App::Run() {
 		for (size_t i = 0, size = m_anim_object.size(); i < size; ++i)
 			m_draw_object[i]->Anim(newer-last,&m_input);
 		SDL_FillRect(m_screen, NULL, SDL_MapRGB(m_screen->format, 255, 255, 255));
-		for (size_t i = 0, size = m_draw_object.size(); i < size; ++i)
-			m_draw_object[i]->Draw(m_screen);        
+		/*for (size_t i = 0, size = m_draw_object.size(); i < size; ++i)
+			m_draw_object[i]->Draw(m_screen);        */
+		m_cube.Draw(m_screen);
 		/*for ( size_t i = 0, size = m_input_object.size(); i < size; ++i )
 			m_draw_object[i]->Input(&m_input);*/
 		SDL_Flip(m_screen);

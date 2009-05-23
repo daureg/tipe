@@ -1,7 +1,7 @@
 #ifndef __APP
 #define __APP
 #include "conf.h"
-#include "circle.h"
+#include "line.h"
 #include "input.h"
 #include "cube.h"
 #include <vector>
@@ -23,6 +23,7 @@ class App {
 		std::vector<Object*> m_input_object;
 		SDL_Surface *m_screen;
 		user_input m_input;
+		Line m_line;
 		Circle m_circle;
 		Uint32 m_time;
 		Cube m_cube;

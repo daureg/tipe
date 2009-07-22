@@ -39,7 +39,7 @@ float Vector4::operator() (Uint8 c) const {
 			return _w;
 	}
 }
-float Vector4::Component() (Uint8 c) const {
+float Vector4::Component(Uint8 c) const {
 	switch (c) {
 		case 1:
 			return _x;

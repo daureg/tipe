@@ -25,6 +25,8 @@ class Vector4 {
 		float operator()(Uint8) const;
 		bool operator==(const Vector4 &) const;
 		
+		float Component(Uint8) const;
+
 		float Norm() const;
 		Vector4 Normalize();
 		void Print() const;

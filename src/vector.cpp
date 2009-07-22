@@ -39,10 +39,22 @@ float Vector4::operator() (Uint8 c) const {
 			return _w;
 	}
 }
+float Vector4::Component() (Uint8 c) const {
+	switch (c) {
+		case 1:
+			return _x;
+		case 2:
+			return _y;
+		case 3:
+			return _z;
+		case 4:
+			return _w;
+	}
+}
 float Vector4::Norm() const { return std::sqrt(_x*_x+_y*_y+_z*_z);}
 Vector4 Vector4::Normalize() { 
 	float f=1/std::sqrt(_x*_x+_y*_y+_z*_z);
 	return Vector4(f*_x, f*_y, f*_z, _w);
 }
-void Vector4::Print() const { printf("[ %f, %f, %f, %d]\n",_x,_y,_z,_w); }
+void Vector4::Print() const { printf("[ %f, %f, %f, %f]\n",_x,_y,_z,_w); }
 

@@ -7,24 +7,24 @@ class Vector4 {
 	public:
 		Vector4();
 		Vector4(float);
-		Vector4(float,float,float,Uint8);
+		Vector4(float,float,float,float);
 		~Vector4();
 
 		float x() const;
 		float y() const;
 		float z() const;
-		Uint8 w() const;
+		float w() const;
 
-		Vector4 operator+(const Vector4 &);
-		Vector4 operator-(const Vector4 &);
-		Vector4 operator*(const float  &);
+		Vector4 operator+(const Vector4 &) const;
+		Vector4 operator-(const Vector4 &) const;
+		Vector4 operator*(const float  &) const;
 		// dot product (scalaire)
-		float operator/(const Vector4 &);
+		float operator/(const Vector4 &) const;
 		// cross product
-		Vector4 operator*(const Vector4 &);
+		Vector4 operator*(const Vector4 &) const;
 		float operator()(Uint8) const;
-		bool operator==(const Vector4 &);
-
+		bool operator==(const Vector4 &) const;
+		
 		float Norm() const;
 		Vector4 Normalize();
 		void Print() const;
@@ -32,6 +32,6 @@ class Vector4 {
 		float _x;
 		float _y;
 		float _z;
-		Uint8 _w;
+		float _w;
 };
 #endif

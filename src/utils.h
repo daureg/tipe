@@ -23,7 +23,7 @@ inline int Random(int min, int max) {
 	return int((rand()/RAND_MAX)*(max-min)+min);
 }
 inline float Random(float min, float max) {
-	return float((rand()/RAND_MAX)*(max-min)+min);
+	return (rand()/float(RAND_MAX-1))*(max-min)+min;
 }
 inline bool cmp(float a, float b) {
 	if (a > b-EPSILON && a < b+EPSILON)

@@ -4,28 +4,23 @@ Vector4::Vector4(float f): _x(f), _y(f), _z(f), _w(f) {}
 Vector4::Vector4(float x, float y, float z, float w): _x(x), _y(y), _z(z), _w(w) {}
 Vector4::~Vector4() {}
 
-float Vector4::x() const { return _x; }
-float Vector4::y() const { return _y; }
-float Vector4::z() const { return _z; }
-float Vector4::w() const { return _w; }
-
 Vector4 Vector4::operator+(const Vector4 &v) const {
-	return Vector4(v.x()+_x, v.y()+_y, v.z()+_z, v.w()+_w);
+	return Vector4(v(1)+_x, v(2)+_y, v(3)+_z, v(4)+_w);
 }
 Vector4 Vector4::operator-(const Vector4 &v) const {
-	return Vector4(v.x()-_x, v.y()-_y, v.z()-_z, v.w()-_w);
+	return Vector4(v(1)-_x, v(2)-_y, v(3)-_z, v(4)-_w);
 }
 Vector4 Vector4::operator*(const float &f) const {
 	return Vector4(f*_x, f*_y, f*_z, f*_w);
 }
 Vector4 Vector4::operator*(const Vector4 &v) const {
-	return Vector4(_y*v.z()-_z*v.y(), _z*v.x()-_x*v.z(), _x*v.y()-_y*v.x(),_w);
+	return Vector4(_y*v(3)-_z*v(2), _z*v(1)-_x*v(3), _x*v(2)-_y*v(1),_w);
 }
 float Vector4::operator/(const Vector4 &v) const {
-	return _x*v.x()+_y*v.y()+_z*v.z();
+	return _x*v(1)+_y*v(2)+_z*v(3);
 }
 bool Vector4::operator==(const Vector4 &v) const {
-	return (cmp(_x,v.x()) && cmp(_y,v.y()) && cmp(_z,v.z()) && cmp(_w,v.w()));
+	return (cmp(_x,v(1)) && cmp(_y,v(2)) && cmp(_z,v(3)) && cmp(_w,v(4)));
 }
 float Vector4::operator() (Uint8 c) const {
 	switch (c) {

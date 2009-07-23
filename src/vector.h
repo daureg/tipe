@@ -10,11 +10,6 @@ class Vector4 {
 		Vector4(float,float,float,float);
 		~Vector4();
 
-		float x() const;
-		float y() const;
-		float z() const;
-		float w() const;
-
 		Vector4 operator+(const Vector4 &) const;
 		Vector4 operator-(const Vector4 &) const;
 		Vector4 operator*(const float  &) const;

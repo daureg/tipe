@@ -1,6 +1,7 @@
 #ifndef __CUBE
 #define __CUBE
 #include "circle.h"
+#include "line.h"
 #include <vector>
 #include "cam.h"
 class Cube : public Object {
@@ -23,6 +24,8 @@ class Cube : public Object {
 		Uint16 m_size;
 		std::vector<Vector4> m_coord;
 		Circle m_points[8];
+		Line m_lines[12];
+		Uint8 m_aux_lines[24];
 		Cam* m_cam;
 };
 #endif

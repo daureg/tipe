@@ -7,6 +7,7 @@ class Vector4 {
 	public:
 		Vector4();
 		Vector4(float);
+		Vector4(float*);
 		Vector4(float,float,float,float);
 		~Vector4();
 
@@ -31,9 +32,6 @@ class Vector4 {
 		Vector4 Normalize();
 		void Print() const;
 	private:
-		float _x;
-		float _y;
-		float _z;
-		float _w;
+		float m_t[4];
 };
 #endif

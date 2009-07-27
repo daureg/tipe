@@ -10,6 +10,8 @@ class Vector4 {
 		Vector4(float,float,float,float);
 		~Vector4();
 
+		Vector4 operator-() const;
+
 		Vector4 operator+(const Vector4 &) const;
 		Vector4 operator-(const Vector4 &) const;
 		Vector4 operator*(const float  &) const;
@@ -19,6 +21,9 @@ class Vector4 {
 		Vector4 operator*(const Vector4 &) const;
 		float operator()(Uint8) const;
 		bool operator==(const Vector4 &) const;
+		bool operator!=(const Vector4 &) const;
+
+		static Vector4 Null();
 		
 		float Component(Uint8) const;
 

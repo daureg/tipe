@@ -4,6 +4,7 @@ Vector4::Vector4(float f): _x(f), _y(f), _z(f), _w(f) {}
 Vector4::Vector4(float x, float y, float z, float w): _x(x), _y(y), _z(z), _w(w) {}
 Vector4::~Vector4() {}
 
+Vector4 Vector4::operator-() const { return Vector4(-_x,-_y,-_z,-_w); }
 Vector4 Vector4::operator+(const Vector4 &v) const {
 	return Vector4(v(1)+_x, v(2)+_y, v(3)+_z, v(4)+_w);
 }
@@ -21,6 +22,9 @@ float Vector4::operator/(const Vector4 &v) const {
 }
 bool Vector4::operator==(const Vector4 &v) const {
 	return (cmp(_x,v(1)) && cmp(_y,v(2)) && cmp(_z,v(3)) && cmp(_w,v(4)));
+}
+bool Vector4::operator!=(const Vector4 &v) const { 
+	return !(cmp(_x,v(1)) && cmp(_y,v(2)) && cmp(_z,v(3)) && cmp(_w,v(4)));
 }
 float Vector4::operator() (Uint8 c) const {
 	switch (c) {
@@ -52,4 +56,4 @@ Vector4 Vector4::Normalize() {
 	return Vector4(f*_x, f*_y, f*_z, _w);
 }
 void Vector4::Print() const { printf("[ %f, %f, %f, %f]\n",_x,_y,_z,_w); }
-
+Vector4 Vector4::Null() { return Vector4(); }

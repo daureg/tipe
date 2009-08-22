@@ -22,7 +22,7 @@ void Circle::SetGreen(Uint8 g) { m_green = g; }
 void Circle::SetAlpha(Uint8 a) { m_alpha = a; }
 
 void Circle::Draw(SDL_Surface* screen) { filledCircleRGBA(screen, m_pos_x, m_pos_y,
-	       m_radius, m_red,m_blue,m_green,m_alpha); }
+	       m_radius, m_red,m_green,m_blue,m_alpha); }
 void Circle::Anim(Uint16 elapsed, user_input* ui) {
 	static float addg,addr,addl;
 	addg += elapsed*0.05f;

@@ -1,60 +1,90 @@
 #include "cam.h"
-Cam::Cam():m_rotx(0.0f),m_roty(0.0f),m_rotz(0.0f),m_fov(.78f){}
-Cam::Cam(Vector4 pos, float x, float y, float z, float fov)
-	:m_pos(pos),m_rotx(x),m_roty(y),m_rotz(z),m_fov(fov) {}/*
-Cam::Cam(Vector4 p, Vector4 u, Vector4 r, Vector4 l, Vector4 fov)
-	:m_pos(&p),m_up(&u),m_right(&r),m_look(&l),m_fov(fov) {}*/
+Cam::Cam():m_up(Vector4(0.0f,1.0f,0.0f,0.0f)),m_look(Vector4(0.0f,0.0f,-1.0f,0.0f)),
+	m_right(Vector4(1.0f,0.0f,0.0f,0.0f)),m_fov(M_PI_2),m_aspect(0.75f),m_near(1.0f),m_far(100.0f) {
+	MakeProjectionMatrix();
+}
+Cam::Cam(Vector4 *p, Vector4 *l, Vector4 *u, Uint8 fov, float a, float n, float f): 
+	m_pos(*p),m_up(u->Normalize()),m_look(l->Normalize()), m_right(-(m_up*m_look)),
+       	m_fov(DegToRad(fov)), m_aspect(a), m_near(n), m_far(f) { MakeProjectionMatrix(); }
 Cam::~Cam() {}
-Vector4 Cam::GetPos() const {return m_pos;}
-float Cam::GetRotX() const {return m_rotx;}
-float Cam::GetRotY() const {return m_rotz;}
-float Cam::GetRotZ() const {return m_rotz;}
-float Cam::GetFov() const {return m_fov;}
-
-
-void Cam::SetPos(Vector4 p) {m_pos=p;}
-void Cam::SetRotX(float x) {m_rotx=x;}
-void Cam::SetRotY(float y) {m_roty=y;}
-void Cam::SetRotZ(float z) {m_rotz=z;}
-
+Vector4 Cam::Proj(Vector4 *p) {return m_full*(*p); }
+void Cam::Move(Vector4 *mvt) {m_pos = m_pos + *mvt;}
+void Cam::Turn(ROTATION_AXIS around, float angle) {
+	Matrix m;
+	angle=DegToRad(angle);
+	switch (around) {
+		case RIGHT:
+			m = Matrix::RotationAxis(&m_right, angle);
+			m_look = m*m_look;
+			m_up = m*m_up;
+			break;
+		case LOOK:
+			m = Matrix::RotationAxis(&m_look, angle);
+			m_right = m*m_right;
+			m_up = m*m_up;
+			break;
+		case UP:
+			m = Matrix::RotationAxis(&m_up, angle);
+			m_look = m*m_look;
+			m_right = m*m_right;
+			break;
+	}
+	RemakeBase();
+}
+void Cam::Print() {printf("p:");m_pos.Print(); printf("r:");m_right.Print(); 
+	printf("l:");m_look.Print(); printf("u:");m_up.Print();}
 void Cam::Anim(Uint16 elapsed, user_input *ui) {}
-
-void Cam::Projection(Vector4 pos, Uint16 &nx, Uint16 &ny) {
-	//Only do the calcul if it's make sense, ie the point will
-	//not be out of the screen.
-	Vector4 p=pos - m_pos;
-	float px,py;
-	float x=m_rotx;
-	float y=m_roty;
-	float z=m_rotz;
-	float a[4]={cosf(-z),sinf(-z),0.0f,0.0f};
-	float b[4]={-sinf(-z),cosf(-z),0.0f,0.0f};
-	float c[4]={0.0f,0.0f,1.0f,0.0f};
-	float d[4]={0.0f,0.0f,0.0f,1.0f};
-	Matrix Z=Matrix(a,b,c,d);
-	a[0]=cosf(-y); a[1]=0.0f; a[2]=-sinf(-y); a[3]=0.0f; 
-	b[0]=0.0f; b[1]=1.0f; b[2]=0.0f; b[3]=0.0f; 
-	c[0]=sinf(-y); c[1]=0.0f; c[2]=cosf(-y); c[3]=0.0f; 
-	d[0]=0.0f; d[1]=0.0f; d[2]=0.0f; d[3]=1.0f; 
-	Matrix Y=Matrix(a,b,c,d);
-	a[0]=1.0f; a[1]=0.0f; a[2]=0.0f; a[3]=0.0f; 
-	b[0]=0.0f; b[1]=cosf(-x); b[2]=sinf(-x); b[3]=0.0f; 
-	c[0]=0.0f; c[1]=-sinf(-z); c[2]=cosf(-z); c[3]=0.0f; 
-	d[0]=0.0f; d[1]=0.0f; d[2]=0.0f; d[3]=1.0f; 
-	Matrix X=Matrix(a,b,c,d);
-	Vector4 D=X*Y*Z*p;
-	float f=m_fov;
-	float e=1.0f/tanf(f/2);
-	px=(D(1)-m_pos(1))*(e/D(3));
-	py=(D(2)-m_pos(2))*(e/D(3));
-	if (px < 1.0f && px > -1.0f && py < 1.0f && py > -1.0f)
-	{
-		nx = int((RES_X/2)*(px+1));
-		ny = int((RES_Y/2)*(py+1));
-	}
-	else
-	{
-		nx=2*RES_X;
-		ny=2*RES_Y;
-	}
+void Cam::RemakeBase() {
+	m_look = m_look.Normalize();
+	m_up = -(m_look*m_right);
+	m_up = m_up.Normalize();
+	m_right = -(m_up*m_look);
+	m_right = m_right.Normalize();
+}
+void Cam::MakeProjectionMatrix() {
+	float n = m_near;
+	float f = m_far;
+	float l = -n*tan(m_fov*0.5f);
+	float r = -l;
+	float b = m_aspect*l;
+	float t = -b;
+	float r11c[16];
+	r11c[0] = 2*n/(r-l);
+	r11c[1] = 0.0f;
+	r11c[2] = 0.0f;// (r+l)/(r-l);
+	r11c[3] = 0.0f;
+	r11c[4] = 0.0f;
+	r11c[5] = 2*n/(t-b);
+	r11c[6] = 0.0f;//(t+b)/(t-b);
+	r11c[7] = 0.0f;
+	r11c[8] = 0.0f;
+	r11c[9] = 0.0f;
+	r11c[10] = (f+n)/(n-f);
+	r11c[11] = (2*n*f)/(n-f);
+	r11c[12] = 0.0f;
+	r11c[13] = 0.0f;
+	r11c[14] = -1.0f;
+	r11c[15] = 0.0f;
+	m_proj = Matrix(r11c);
+}
+void Cam::MakeAlignMatrix() {
+	float r5ed[16];
+	r5ed[0] = m_right(1);
+	r5ed[1] = m_right(2);
+	r5ed[2] = m_right(3);
+	r5ed[3] = -m_pos(1);
+	r5ed[4] = m_up(1);
+	r5ed[5] = m_up(2);
+	r5ed[6] = m_up(3);
+	r5ed[7] = -m_pos(2); // pas de signe moins TODO !
+	r5ed[8] = -m_look(1);
+	r5ed[9] = -m_look(2);
+	r5ed[10] = -m_look(3);
+	r5ed[11] = -m_pos(1);
+	r5ed[12] = 0.0f;
+	r5ed[13] = 0.0f;
+	r5ed[14] = 0.0f;
+	r5ed[15] = 1.0f;
+	m_align = Matrix(r5ed);
+	m_full = m_proj * m_align;
 }

@@ -1,39 +1,40 @@
 #ifndef __CAM
 #define __CAM
-#include "vector.h"
 #include "matrix.h"
 #include "input.h"
-#include "conf.h"
 #include <cmath>
 class Cam {
 	public:
 		Cam();
-		Cam(Vector4, float, float, float, float);
-//		Cam(Vector4, Vector4, Vector4, Vector4, float);
-		~Cam();
+		Cam(Vector4*,Vector4*,Vector4*,Uint8,float,float,float);
+		virtual ~Cam();
 
-		Vector4 GetPos() const;
-		float GetRotX() const;
-		float GetRotY() const;
-		float GetRotZ() const;
-		float GetFov() const;
-
-		void SetPos(Vector4);
-		void SetRotX(float);
-		void SetRotY(float);
-		void SetRotZ(float);
-
+		enum ROTATION_AXIS {
+			RIGHT,
+			LOOK,
+			UP
+		};
+		Vector4 Proj(Vector4*);
+		void Move(Vector4*);
+		void Turn(ROTATION_AXIS, float);
+		void Print() ;
 		void Anim(Uint16, user_input*);
-		void Projection(Vector4, Uint16 &, Uint16 &);
-	private:
-		Vector4 m_pos;
-		float m_rotx;
-		float m_roty;
-		float m_rotz;
-		float m_fov;/*
-		Vector4 m_up;
-		Vector4 m_right;
-		Vector4 m_look;*/
 
+		void MakeAlignMatrix();
+	private:
+		void RemakeBase();
+		void MakeProjectionMatrix();
+
+		Vector4 m_pos;
+		Vector4 m_up;
+		Vector4 m_look;
+		Vector4 m_right;
+		float m_fov;
+		float m_aspect;
+		float m_near;
+		float m_far;
+		Matrix m_proj;
+		Matrix m_align;
+		Matrix m_full;
 };
 #endif

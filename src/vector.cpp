@@ -3,6 +3,7 @@ Vector4::Vector4() { for(Uint8 i=0;i<4;i++) m_t[i]=0.0f; }
 Vector4::Vector4(float f) { for(Uint8 i=0;i<4;i++) m_t[i]=f; }
 Vector4::Vector4(float *t) { for(Uint8 i=0;i<4;i++) m_t[i]=t[i]; }
 Vector4::Vector4(float x,float y,float z,float w){m_t[0]=x;m_t[1]=y;m_t[2]=z;m_t[3]=w;}
+Vector4::Vector4(const Vector4 &v) { for(Uint8 i=0;i<4;i++) m_t[i]=v(i+1);}
 Vector4::~Vector4() {}
 
 Vector4 Vector4::operator-() const { return Vector4(-m_t[0],-m_t[1],-m_t[2],-m_t[3]); }

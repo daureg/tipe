@@ -9,6 +9,7 @@ class Vector4 {
 		Vector4(float);
 		Vector4(float*);
 		Vector4(float,float,float,float);
+		Vector4(const Vector4 &v);
 		~Vector4();
 
 		Vector4 operator-() const;

@@ -23,7 +23,42 @@ void Line::SetRed(Uint8 r) { m_red = r; }
 void Line::SetBlue(Uint8 b) { m_blue = b; }
 void Line::SetGreen(Uint8 g) { m_green = g; }
 void Line::SetAlpha(Uint8 a) { m_alpha = a; }
-void Line::Draw(SDL_Surface* screen) { aalineRGBA(screen,m_pos_x1,m_pos_y1,m_pos_x2,
-		m_pos_y2,m_red,m_blue,m_green,m_alpha); }
+void Line::Draw(SDL_Surface* screen) {
+//aalineRGBA(screen,m_pos_x1,m_pos_y1,m_pos_x2,m_pos_y2,m_red,m_green,m_blue,m_alpha);
+	Sint16 dx,dy,cumul,x,y,xinc,yinc,i;
+	x = m_pos_x1;
+	y = m_pos_y1;
+	dx = m_pos_x2 - m_pos_x1;
+	dy = m_pos_y2 - m_pos_y1;
+	xinc = ( dx > 0 ) ? 1 : -1;
+	yinc = ( dy > 0 ) ? 1 : -1;
+	dx = abs(dx);
+	dy = abs(dy);
+	pixelRGBA(screen,x,y,m_red,m_green,m_blue,m_alpha);
+	if ( dx > dy ) {
+		cumul = dx / 2;
+		for (i = 0; i < dx; i++) {
+			x += xinc;
+			cumul += dy;
+			if (cumul >= dx) {
+				cumul -= dx;
+				y += yinc;
+			}
+			pixelRGBA(screen,x,y,m_red,m_green,m_blue,m_alpha);
+		} 
+	}
+	else {
+		cumul = dy / 2;
+		for (i = 0; i < dy; i++) {
+			y += yinc;
+			cumul += dx;
+			if (cumul > dy) {
+				cumul -= dy;
+				x += xinc; 
+			}
+			pixelRGBA(screen,x,y,m_red,m_green,m_blue,m_alpha); 
+		} 
+	}
+}
 void Line::Anim(Uint16 elapsed, user_input* ui) { }
 void Line::Input(user_input* ui) {}

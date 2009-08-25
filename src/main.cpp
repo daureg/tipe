@@ -2,9 +2,13 @@
 #include <string>
 #include "capp.h"
 #include "tapp.h"
-const Uint8 NAPP = 2;
-const std::string APP[NAPP] = {"triangle","cube"};
-const std::string DAPP[NAPP] = {"Affiches des triangles en 2D","Affiche un cube en 3D"};
+#include "rapp.h"
+#include "wapp.h"
+#include "papp.h"
+const Uint8 NAPP = 5;
+const std::string APP[NAPP] = {"triangle","cube","rpng","wpng","perlin"};
+const std::string DAPP[NAPP] = {"Affiches des triangles en 2D","Affiche un cube en 3D", \
+"lit une image png","Écrit une image png","Crée une carte de perlin"};
 int Help() {
 	for (Uint8 i=0;i<NAPP;i++)
 		printf("%s : %s\n",APP[i].c_str(),DAPP[i].c_str());
@@ -29,6 +33,18 @@ int main(int argc, char *argv[])
 		}
 		if (cur_app==1) {
 			Capp a = Capp(&c1);
+			a.Run();
+		}
+		if (cur_app==2) {
+			Rapp a = Rapp();
+			a.Run();
+		}
+		if (cur_app==3) {
+			Wapp a = Wapp();
+			a.Run();
+		}
+		if (cur_app==4) {
+			Papp a = Papp();
 			a.Run();
 		}
 		return EXIT_SUCCESS;

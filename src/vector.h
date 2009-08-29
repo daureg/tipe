@@ -27,8 +27,6 @@ class Vector4 {
 
 		static Vector4 Null();
 		
-		float Component(Uint8) const;
-
 		float Norm() const;
 		Vector4 Normalize();
 		void Print() const;

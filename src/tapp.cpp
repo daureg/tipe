@@ -27,10 +27,8 @@ void Tapp::Draw() {
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity( );
 	glPushMatrix();
-	for (Uint8 i = 0; i < NBTR; i++) {
-		glColor3ub((i+1)*2,(i+3)*4,(i+2)*6);
-	       	m_trs[i].Draw();
-	}
+	for (Uint8 i = 0; i < NBTR; i++)
+	       	m_trs[i].DrawGL(5*i);
 	glPopMatrix();
 	glFlush();
 	SDL_GL_SwapBuffers();

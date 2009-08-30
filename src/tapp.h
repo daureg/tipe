@@ -2,7 +2,7 @@
 #define __TAPP
 #include "app.h"
 #include "triangle.h"
-const Uint16 NBTR=2;
+const Uint16 NBTR=5;
 class Tapp : public App {
 	public:
 		Tapp (Conf *);

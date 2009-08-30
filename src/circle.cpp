@@ -23,25 +23,4 @@ void Circle::SetAlpha(Uint8 a) { m_alpha = a; }
 
 void Circle::Draw(SDL_Surface* screen) { filledCircleRGBA(screen, m_pos_x, m_pos_y,
 	       m_radius, m_red,m_green,m_blue,m_alpha); }
-void Circle::Anim(Uint16 elapsed, user_input* ui) {
-	static float addg,addr,addl;
-	addg += elapsed*0.05f;
-	addr += elapsed*0.05f;
-	if (ui->east.active) {
-		addl += (SDL_GetTicks() - ui->east.time)*0.05f;
-		ui->east.active=false;
-	}
-	if (addg > 1.0f) {
-		m_green = (m_green+1)%255;
-		addg = 0.0f;
-	}
-	if (addr > 2.0f) {
-		m_radius = (m_radius+1)%250;
-		addr = 0.0f;
-	}
-	if (addl > 1.0f) {
-		m_pos_x = (m_pos_x+5)%(800+m_radius/2);
-		addl = 0.0f;
-	}
-}
-void Circle::Input(user_input* ui) {}
+void Circle::Anim(Uint16 elapsed, Input* ui) {}

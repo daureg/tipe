@@ -11,8 +11,7 @@ class Line : public Object {
 		Line(Uint16,Uint16,Uint16,Uint16,Uint8,Uint8,Uint8,Uint8);
 		~Line();
 		virtual void Draw(SDL_Surface*);
-		virtual void Anim(Uint16,user_input*);
-		virtual void Input(user_input*);
+		virtual void Anim(Uint16,Input*);
 		Uint16 GetPosX1() const;
 		Uint16 GetPosY1() const;
 		Uint16 GetPosX2() const;

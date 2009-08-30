@@ -8,7 +8,6 @@ App::App(Conf *option):m_frames(0){
 	SDL_WM_SetCaption("TIPE", NULL);
 	m_draw_object.reserve(15);
 	m_anim_object.reserve(15);
-	m_input_object.reserve(15);
 	if (glewInit() == GLEW_OK)
 		printf("GL_NV_texgen_emboss is : %s\n",(GLEW_NV_texgen_emboss) ? "OK" : "MISSING");
 }
@@ -24,23 +23,13 @@ int App::Run() {
 	while (true) {
 		newer=SDL_GetTicks();
 		SDL_PollEvent(&event);
-		if (event.type==SDL_KEYDOWN)
-			if (GetInput(&event))
-				return 0;
-		//SDL_Delay(300);
+		m_input.ProcessKeyboard(event.key);
+		if (m_input.IsPressed("quit"))
+			return 0;
+		// TODO screenshot
 		Draw();
 		last=newer;
 	}
-}
-bool App::GetInput(SDL_Event* ev) {
-	switch(ev->key.keysym.sym)
-	{
-		case SDLK_ESCAPE:
-			return true;
-		case SDLK_F12:
-			SDL_SaveBMP(m_screen,"screenshot.bmp");
-	}
-	return false;
 }
 void App::AddDrawObject(Object* obj) {
 	if (m_draw_object.size() >= m_draw_object.capacity())
@@ -51,11 +40,6 @@ void App::AddAnimObject(Object* obj) {
 	if (m_anim_object.size() >= m_anim_object.capacity())
 		m_anim_object.reserve(m_anim_object.size()+15);
 	m_anim_object.push_back(obj);
-}
-void App::AddInputObject(Object* obj) {
-	if (m_input_object.size() >= m_input_object.capacity())
-		m_input_object.reserve(m_input_object.size()+15);
-	m_input_object.push_back(obj);
 }
 void App::Draw() {
 	m_frames++;

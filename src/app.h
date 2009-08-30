@@ -18,16 +18,13 @@ class App {
 		virtual void Draw();
 		SDL_Surface *m_screen;
 		Uint32 m_frames;
-		bool GetInput(SDL_Event*);
 	private:
 		void AddDrawObject(Object*);
 		void AddAnimObject(Object*);
-		void AddInputObject(Object*);
 
 		std::vector<Object*> m_draw_object;
 		std::vector<Object*> m_anim_object;
-		std::vector<Object*> m_input_object;
-		user_input m_input;
+		Input m_input;
 		Uint32 m_time;
 };
 #endif

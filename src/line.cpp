@@ -60,5 +60,4 @@ void Line::Draw(SDL_Surface* screen) {
 		} 
 	}
 }
-void Line::Anim(Uint16 elapsed, user_input* ui) { }
-void Line::Input(user_input* ui) {}
+void Line::Anim(Uint16 elapsed, Input* ui) { }

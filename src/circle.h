@@ -11,8 +11,7 @@ class Circle : public Object {
 		Circle(Uint16, Uint16, Uint16, Uint8, Uint8, Uint8, Uint8);
 		~Circle();
 		virtual void Draw(SDL_Surface*);
-		virtual void Anim(Uint16,user_input*);
-		virtual void Input(user_input*);
+		virtual void Anim(Uint16,Input*);
 		Uint16 GetPosX() const;
 		Uint16 GetPosY() const;
 		Uint16 GetRadius() const;

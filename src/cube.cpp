@@ -73,5 +73,4 @@ void Cube::Draw(SDL_Surface *screen) {
 
 	}
 }
-void Cube::Anim(Uint16 elapsed,user_input* ui) {}
-void Cube::Input(user_input* ui) {}
+void Cube::Anim(Uint16 elapsed,Input* ui) {}

@@ -10,8 +10,7 @@ class Cube : public Object {
 		Cube(Vector4, Uint16, Cam*);
 		~Cube();
 		void Draw(SDL_Surface*);
-		void Anim(Uint16,user_input*);
-		void Input(user_input*);
+		void Anim(Uint16,Input*);
 
 		Vector4 GetCenter() const;
 		Uint16 GetSize() const;

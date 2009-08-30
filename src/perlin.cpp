@@ -1,17 +1,21 @@
 #include "perlin.h"
-Perlin::Perlin():m_size(PERLIN_SIZE), m_octaves(5), m_persistance(0.3f), m_period(m_size/2) {
+Perlin::Perlin():m_size(PERLIN_SIZE),m_octaves(5),m_persistance(0.7f),m_period(m_size/2) {
 	this->FillRandom();
 }
 Perlin::Perlin(Uint16 size, Uint8 oct, float per):
 	m_size(size), m_octaves(oct), m_persistance(per), m_period(size/2) {
 	this->FillRandom();
 }
-Perlin::~Perlin() { delete [] m_random; }
+Perlin::~Perlin() {
+	delete [] m_random;
+	delete [] m_pcache;
+	delete [] m_2cache;
+}
 
 float Perlin::Noise(Uint16 x, Uint16 y) {
 	float perlin = 0.0f;
-	for(Uint8 i = 0;i<m_octaves;i++) 
-		perlin += this->InterNoise2D(x*pow(2,i),y*pow(2,i)) * pow(m_persistance, i);
+	for(Uint8 i=0; i<m_octaves; i++)
+		perlin += this->InterNoise2D(x*m_2cache[i],y*m_2cache[i]) *m_pcache[i];
 	return perlin;
 }
 float Perlin::InterNoise2D(Uint16 x, Uint16 y) {
@@ -29,11 +33,17 @@ float Perlin::InterCos2D(float a, float b, float c, float d, float x, float y) {
 	return Perlin::InterCos(InterCos(a,b,x),InterCos(c,d,x),y);
 }
 void Perlin::FillRandom() {
+	Uint32 i;
 	m_random = new float[m_size*m_size];
-	Uint32 max = (2<<31)-1;
-	printf("Start filling random...\n");
-	for (Uint32 i = 0; i<m_size*m_size; i++)
-		m_random[i] = rand()/float(max);
-	printf("Done !\n");
+	for (i = 0; i<(Uint32)m_size*m_size; i++)
+		m_random[i] = rand()/float(RAND_MAX);
+	m_pcache = new float[m_octaves];
+	m_pcache[0]=1.0f;
+	for (i=1; i<m_octaves; i++)
+		m_pcache[i]=m_persistance*m_pcache[i-1];
+	m_2cache = new Uint8[m_octaves];
+	m_2cache[0]=1;
+	for (i=1; i<m_octaves; i++)
+		m_2cache[i]=2*m_2cache[i-1];
 }
 

@@ -7,7 +7,7 @@ const Uint16 PERLIN_SIZE = 256;
 class Perlin {
 	public:
 		Perlin();
-		Perlin (Uint16 size=PERLIN_SIZE, Uint8 octaves=5, float persistance=0.3f);
+		Perlin (Uint16 size=PERLIN_SIZE, Uint8 octaves=5, float persistance=0.7f);
 		virtual ~Perlin ();
 
 		float Noise(Uint16, Uint16);
@@ -21,6 +21,8 @@ class Perlin {
 		Uint8 m_octaves;
 		float m_persistance;
 		float *m_random;
+		float *m_pcache;
+		Uint8 *m_2cache;
 		Uint16 m_period;
 };
 #endif

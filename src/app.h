@@ -6,6 +6,7 @@
 #include "object.h"
 #include <vector>
 #include <time.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 class App {
@@ -17,8 +18,8 @@ class App {
 		virtual void Draw();
 		SDL_Surface *m_screen;
 		Uint32 m_frames;
-	private:
 		bool GetInput(SDL_Event*);
+	private:
 		void AddDrawObject(Object*);
 		void AddAnimObject(Object*);
 		void AddInputObject(Object*);

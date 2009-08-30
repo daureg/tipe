@@ -9,6 +9,8 @@ App::App(Conf *option):m_frames(0){
 	m_draw_object.reserve(15);
 	m_anim_object.reserve(15);
 	m_input_object.reserve(15);
+	if (glewInit() == GLEW_OK)
+		printf("GL_NV_texgen_emboss is : %s\n",(GLEW_NV_texgen_emboss) ? "OK" : "MISSING");
 }
 App::~App() {
 	printf("FPS : %.2f\n",float(1000*m_frames)/SDL_GetTicks());
@@ -30,11 +32,11 @@ int App::Run() {
 		last=newer;
 	}
 }
-	bool App::GetInput(SDL_Event* ev) {
-		switch(ev->key.keysym.sym)
-		{
-			case SDLK_ESCAPE:
-				return true;
+bool App::GetInput(SDL_Event* ev) {
+	switch(ev->key.keysym.sym)
+	{
+		case SDLK_ESCAPE:
+			return true;
 		case SDLK_F12:
 			SDL_SaveBMP(m_screen,"screenshot.bmp");
 	}

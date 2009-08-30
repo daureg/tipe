@@ -9,6 +9,7 @@ class Triangle {
 		virtual ~Triangle();
 		void SetPoint(Uint16*,Uint16*,Uint16*,Uint16*);
 		void Draw() const;
+		void DrawGL(Uint8) const;
 
 	private:
 		void Swap(Uint8,Uint8);

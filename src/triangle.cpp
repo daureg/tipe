@@ -30,9 +30,19 @@ void Triangle::SetPoint(Uint16 *t,Uint16 *l1,Uint16 *l2,Uint16 *l3) {
 		m_vertex[i]=t[i]; 
 	Sort();  
 }
+void Triangle::DrawGL(Uint8 i) const {
+	glColor3ub((i+1)*2,(i+3)*4,(i+7)*6);
+	glBegin(GL_TRIANGLES);
+	glVertex2i(m_vertex[0],m_vertex[1]);
+	glColor3ub((i+7)*3,(i+3)*2,(i+1)*3);
+	glVertex2i(m_vertex[2],m_vertex[3]);
+	glColor3ub((i+10)*5,(i+2)*3,(i+8)*4);
+	glVertex2i(m_vertex[4],m_vertex[5]);
+	glEnd();
+}
 void Triangle::Draw() const {
-	Uint16 i,j,xmin,xmax;
-	static bool once=true;
+	Uint16 i,j,xmin,xmax,d1,d2,d3,red;
+
 	memset(m_l1,INF16,SIZE*sizeof(Uint16));
 	memset(m_l2,INF16,SIZE*sizeof(Uint16));
 	memset(m_l3,INF16,SIZE*sizeof(Uint16));
@@ -43,6 +53,20 @@ void Triangle::Draw() const {
 
 	for (j=m_vertex[1];j<=m_vertex[3];j++) {
 		if (m_l1[j]!=INF16 && m_l2[j]!=INF16) {
+			/*
+			xmin = (m_l1[j] < m_l2[j]) ? m_l1[j] : m_l2[j];
+			xmax = (m_l1[j] > m_l2[j]) ? m_l1[j] : m_l2[j];
+			for (i=xmin;i<=xmax;i++) {
+				d1=abs(i-m_vertex[0])+abs(j-m_vertex[1]);
+				d2=abs(i-m_vertex[2])+abs(j-m_vertex[3]);
+				d3=abs(i-m_vertex[4])+abs(j-m_vertex[5]);
+				red=(255*d1+128*d2+64*d3)/(d1+d2+d3);
+				glColor3ub(red,0,0);
+				glBegin(GL_POINTS);
+				glVertex2i(i,j);
+				glEnd();
+			}
+			*/
 			glBegin(GL_LINES);
 			glVertex2i(m_l1[j],j);
 			glVertex2i(m_l2[j],j);
@@ -51,6 +75,20 @@ void Triangle::Draw() const {
 	}
 	for (j=m_vertex[3]+1;j<=m_vertex[5];j++) {
 		if (m_l1[j]!=INF16 && m_l3[j]!=INF16) {
+			/*
+			   xmin = (m_l1[j] < m_l3[j]) ? m_l1[j] : m_l3[j];
+			   xmax = (m_l1[j] > m_l3[j]) ? m_l1[j] : m_l3[j];
+			   for (i=xmin;i<=xmax;i++) {
+			   d1=abs(i-m_vertex[0])+abs(j-m_vertex[1]);
+			   d2=abs(i-m_vertex[2])+abs(j-m_vertex[3]);
+			   d3=abs(i-m_vertex[4])+abs(j-m_vertex[5]);
+			   red=(255*d1+128*d2+64*d3)/(d1+d2+d3);
+			   glColor3ub(red,0,0);
+			   glBegin(GL_POINTS);
+			   glVertex2i(i,j);
+			   glEnd();
+			   }
+			   */
 			glBegin(GL_LINES);
 			glVertex2i(m_l1[j],j);
 			glVertex2i(m_l3[j],j);

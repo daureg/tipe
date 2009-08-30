@@ -30,7 +30,7 @@ void Cube::Build() {
 	m_coord[7]=Vector4(-a,a,a,1);
 	for (int i=0; i<8; i++)
 	{
-		m_cam->Projection(m_coord[i],x,y);
+		//m_cam->Projection(m_coord[i],x,y);
 		m_points[i].SetPosX(x);
 		m_points[i].SetPosX(y);
 	}
@@ -57,9 +57,10 @@ void Cube::Draw(SDL_Surface *screen) {
 	{
 		for (int i=0; i<8; i++)
 		{
-		m_cam->Projection(m_coord[i],x,y);
+		//m_cam->Projection(m_coord[i],x,y);
 		m_points[i].SetPosX(x);
 		m_points[i].SetPosY(y);
+		m_points[i].Draw(screen);
 		}
 		for (int i=0; i<12; i++)
 		{
@@ -67,14 +68,10 @@ void Cube::Draw(SDL_Surface *screen) {
 			m_lines[i].SetPosY1(m_points[m_aux_lines[2*i]].GetPosY());
 			m_lines[i].SetPosX2(m_points[m_aux_lines[2*i+1]].GetPosX());
 			m_lines[i].SetPosY2(m_points[m_aux_lines[2*i+1]].GetPosY());
+			m_lines[i].Draw(screen);
 		}
 
 	}
-
-	for (int i=0; i<8; i++)
-		m_points[i].Draw(screen);
-	for (int i=0; i<12; i++)
-		m_lines[i].Draw(screen);
 }
 void Cube::Anim(Uint16 elapsed,user_input* ui) {}
 void Cube::Input(user_input* ui) {}

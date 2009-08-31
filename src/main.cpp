@@ -2,15 +2,14 @@
 #include <string>
 #include "capp.h"
 #include "tapp.h"
-#include "rapp.h"
-#include "wapp.h"
+#include "pngapp.h"
 #include "papp.h"
 #include "gapp.h"
 #include "iapp.h"
-const Uint8 NAPP = 7;
-const std::string APP[NAPP] = {"triangle","cube","rpng","wpng","perlin","camera","input"};
+const Uint8 NAPP = 6;
+const std::string APP[NAPP] = {"triangle","cube","png","perlin","camera","input"};
 const std::string DAPP[NAPP] = {"Affiches des triangles en 2D","Affiche un cube en 3D",
-"lit une image png","Écrit une image png","Crée une carte de perlin","Un cube avec une caméra",
+"Lit et écrit une image png","Crée une carte de perlin","Un cube avec une caméra",
 "Teste les entrée clavier"};
 int Help() {
 	for (Uint8 i=0;i<NAPP;i++)
@@ -38,11 +37,7 @@ int main(int argc, char *argv[])
 			return a.Run();
 		}
 		if (cur_app==2) {
-			Rapp a = Rapp();
-			return a.Run();
-		}
-		if (cur_app==3) {
-			Wapp a = Wapp();
+			PNGapp a = PNGapp();
 			return a.Run();
 		}
 		if (cur_app==4) {

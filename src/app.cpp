@@ -4,7 +4,7 @@ App::App():m_frames(0){
 	m_screen = SDL_SetVideoMode(RES_X,RES_Y, 32, SDL_OPENGL);
 	SDL_WM_SetCaption("TIPE", NULL);
 	m_draw_object.reserve(15);
-	m_anim_object.reserve(15);
+	m_anim_object.reserve(5);
 	glewInit();
 }
 App::~App() {
@@ -31,6 +31,8 @@ int App::Run() {
 		current_time = SDL_GetTicks();
 		elapsed_time = current_time - last_time;
 		last_time = current_time;
+		for (size_t i = 0, size = m_anim_object.size(); i < size; ++i)
+			m_anim_object[i]->Anim(elapsed_time,&m_input);
 		Draw();
 	}
 	fprintf(stderr,"You don't have the GL_ARB_vertex_buffer_object extension\n");

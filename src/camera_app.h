@@ -13,7 +13,6 @@ class CameraApp : public App {
 	public:
 		CameraApp();
 		virtual ~CameraApp();
-		int Run();
 	private:
 		void Draw();
 		Cam m_cam;

@@ -1,5 +1,5 @@
-#include "papp.h"
-Papp::Papp():m_png("perlin.png"),m_perlin(256,5,0.7f) {
+#include "perlin_app.h"
+PerlinApp::PerlinApp():m_png("perlin.png"),m_perlin(256,5,0.7f) {
 	float tmp=0.0f;
 	Uint8 expand=0;
 	Uint16 i,j;
@@ -24,5 +24,5 @@ Papp::Papp():m_png("perlin.png"),m_perlin(256,5,0.7f) {
 		for (j=0;j<PICTURE_SIZE;j++)
 			m_t[PICTURE_SIZE*i+j]=Uint8((m_t[PICTURE_SIZE*i+j]-hmin)*tmp);
 }
-bool Papp::Run() {return m_png.Write(m_t);}
-Papp::~Papp() {delete [] m_t;}
+bool PerlinApp::Run() {return m_png.Write(m_t);}
+PerlinApp::~PerlinApp() {delete [] m_t;}

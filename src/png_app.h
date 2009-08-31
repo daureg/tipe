@@ -1,11 +1,11 @@
-#ifndef __PNGAPP
-#define __PNGAPP
+#ifndef __PNG_APP
+#define __PNG_APP
 #include "wpng.h"
 #include "rpng.h"
-class PNGapp {
+class PngApp {
 	public:
-		PNGapp();
-		virtual ~PNGapp();
+		PngApp();
+		virtual ~PngApp();
 		int Run();
 	private:
 		Rpng m_rpng;

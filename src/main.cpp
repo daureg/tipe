@@ -1,17 +1,18 @@
 #include <ctime>
 #include <string>
 #include "capp.h"
-#include "tapp.h"
-#include "pngapp.h"
-#include "papp.h"
+#include "triangle_app.h"
+#include "png_app.h"
+#include "perlin_app.h"
 #include "camera_app.h"
 const Uint8 NAPP = 5;
 const std::string APP[NAPP] = {"triangle","cube","png","perlin","camera"};
 const std::string DAPP[NAPP] = {"Affiches des triangles en 2D","Affiche un cube en 3D",
 "Lit et écrit une image png","Crée une carte de perlin","Un cube avec une caméra dirigée au clavier"};
 int Help() {
+	fprintf(stderr,"Please use one of the following argument :\n");
 	for (Uint8 i=0;i<NAPP;i++)
-		printf("%s : %s\n",APP[i].c_str(),DAPP[i].c_str());
+		fprintf(stderr, "%s : %s\n",APP[i].c_str(),DAPP[i].c_str());
 	return EXIT_SUCCESS;
 }
 int main(int argc, char *argv[])
@@ -27,7 +28,7 @@ int main(int argc, char *argv[])
 		}
 	if (cur_app!=255) {
 		if (cur_app==0) {
-			Tapp a = Tapp();
+			TriangleApp a = TriangleApp();
 			return a.Run();
 		}
 		if (cur_app==1) {
@@ -35,11 +36,11 @@ int main(int argc, char *argv[])
 			return a.Run();
 		}
 		if (cur_app==2) {
-			PNGapp a = PNGapp();
+			PngApp a = PngApp();
 			return a.Run();
 		}
 		if (cur_app==3) {
-			Papp a = Papp();
+			PerlinApp a = PerlinApp();
 			return a.Run();
 		}
 		if (cur_app==4) {

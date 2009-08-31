@@ -1,11 +1,11 @@
-#include "pngapp.h"
-PNGapp::PNGapp():m_rpng("in.png"),m_wpng("out.png") {
+#include "png_app.h"
+PngApp::PngApp():m_rpng("in.png"),m_wpng("out.png") {
 	m_written = new Uint8[PICTURE_SIZE*PICTURE_SIZE];
 }
-PNGapp::~PNGapp() {
+PngApp::~PngApp() {
 	delete [] m_written;
 }
-int PNGapp::Run() {
+int PngApp::Run() {
 	const Uint8 *read = m_rpng.Read();
 	Uint16 size = PICTURE_SIZE;
 	for (Uint16 i=0; i<size; i++)

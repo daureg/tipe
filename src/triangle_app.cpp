@@ -1,5 +1,5 @@
-#include "tapp.h"
-Tapp::Tapp() {
+#include "triangle_app.h"
+TriangleApp::TriangleApp() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(0,RES_X,RES_Y,0);
@@ -16,12 +16,12 @@ Tapp::Tapp() {
 	}
 
 }
-Tapp::~Tapp() {	
+TriangleApp::~TriangleApp() {	
 	delete [] m_l1;
 	delete [] m_l2;
 	delete [] m_l3;
 }
-void Tapp::Draw() {
+void TriangleApp::Draw() {
 	m_frames++;
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glMatrixMode( GL_MODELVIEW );

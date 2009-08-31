@@ -1,11 +1,11 @@
-#ifndef __PAPP
-#define __PAPP
+#ifndef __PERLIN_APP
+#define __PERLIN_APP
 #include "wpng.h"
 #include "perlin.h"
-class Papp {
+class PerlinApp {
 	public:
-		Papp();
-		virtual ~Papp();
+		PerlinApp();
+		virtual ~PerlinApp();
 		bool Run();
 	private:
 		Wpng m_png;

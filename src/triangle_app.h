@@ -1,12 +1,12 @@
-#ifndef __TAPP
-#define __TAPP
+#ifndef __TRIANGLE_APP
+#define __TRIANGLE_APP
 #include "app.h"
 #include "triangle.h"
 const Uint16 NBTR=5;
-class Tapp : public App {
+class TriangleApp : public App {
 	public:
-		Tapp();
-		virtual ~Tapp();
+		TriangleApp();
+		virtual ~TriangleApp();
 		void Draw();
 	private:
 		Triangle m_trs[NBTR];

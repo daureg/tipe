@@ -26,6 +26,5 @@ class App {
 		std::vector<Object*> m_draw_object;
 		std::vector<Object*> m_anim_object;
 		Input m_input;
-		Uint32 m_time;
 };
 #endif

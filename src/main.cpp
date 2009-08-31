@@ -31,33 +31,32 @@ int main(int argc, char *argv[])
 	if (cur_app!=255) {
 		if (cur_app==0) {
 			Tapp a = Tapp();
-			a.Run();
+			return a.Run();
 		}
 		if (cur_app==1) {
 			Capp a = Capp();
-			a.Run();
+			return a.Run();
 		}
 		if (cur_app==2) {
 			Rapp a = Rapp();
-			a.Run();
+			return a.Run();
 		}
 		if (cur_app==3) {
 			Wapp a = Wapp();
-			a.Run();
+			return a.Run();
 		}
 		if (cur_app==4) {
 			Papp a = Papp();
-			a.Run();
+			return a.Run();
 		}
 		if (cur_app==5) {
 			Gapp a = Gapp();
-			a.Run();
+			return a.Run();
 		}
 		if (cur_app==6) {
 			Iapp a = Iapp();
-			a.Run();
+			return a.Run();
 		}
-		return EXIT_SUCCESS;
 	}
 	else 
 		return Help();

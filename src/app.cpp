@@ -1,14 +1,11 @@
 #include "app.h"
-Uint32 start = 0;
-Uint32 m_frames = 0; 
 App::App():m_frames(0){
 	SDL_Init(SDL_INIT_VIDEO);
 	m_screen = SDL_SetVideoMode(RES_X,RES_Y, 32, SDL_OPENGL);
 	SDL_WM_SetCaption("TIPE", NULL);
 	m_draw_object.reserve(15);
 	m_anim_object.reserve(15);
-	if (glewInit() == GLEW_OK)
-		printf("GL_NV_texgen_emboss is : %s\n",(GLEW_NV_texgen_emboss) ? "OK" : "MISSING");
+	glewInit();
 }
 App::~App() {
 	printf("FPS : %.2f\n",float(1000*m_frames)/SDL_GetTicks());
@@ -16,20 +13,28 @@ App::~App() {
 	SDL_Quit();
 }
 int App::Run() {
-	static Uint32 last=m_time,newer=0;
 	static SDL_Event event;
-	start = SDL_GetTicks();
-	while (true) {
-		newer=SDL_GetTicks();
+	bool run = GLEW_ARB_vertex_buffer_object;
+	Uint32 last_time,current_time,elapsed_time;
+	last_time = SDL_GetTicks();
+	while (run) {
+		/* Get input */
 		SDL_PollEvent(&event);
 		m_input.ProcessKeyboard(event.key);
+		/* Process generic event */
 		if (m_input.IsPressed("quit"))
-			return 0;
+			return EXIT_SUCCESS;
 		if (m_input.IsPressed("screenshot"))
 			Screenshot();
+
+		/* Process object event */		
+		current_time = SDL_GetTicks();
+		elapsed_time = current_time - last_time;
+		last_time = current_time;
 		Draw();
-		last=newer;
 	}
+	fprintf(stderr,"You don't have the GL_ARB_vertex_buffer_object extension\n");
+	return EXIT_FAILURE;
 }
 void App::AddDrawObject(Object* obj) {
 	if (m_draw_object.size() >= m_draw_object.capacity())

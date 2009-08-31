@@ -2,8 +2,9 @@
 #define __LEARNING_CAM
 #include "matrix.h"
 #include "input.h"
+#include "object.h"
 #include <cmath>
-class LearningCam {
+class LearningCam : public Object {
 	public:
 		LearningCam();
 		LearningCam(Vector4*);
@@ -21,6 +22,7 @@ class LearningCam {
 		void Print();
 		void Anim(Uint16, Input*);
 
+		void Draw(SDL_Surface*);
 		void MakeAlignMatrix();
 	private:
 		void RemakeBase();

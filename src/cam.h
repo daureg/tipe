@@ -3,7 +3,8 @@
 #include "input.h"
 #include "matrix.h"
 #include <GL/glu.h>
-class Cam {
+#include "object.h"
+class Cam : public Object {
 	public:
 		Cam();
 		Cam(Vector4*);
@@ -12,6 +13,7 @@ class Cam {
 		void Move(Vector4*);
 		void Anim(Uint16, Input*);
 		void Look();
+		void Draw(SDL_Surface*);
 	private:
 		enum ROTATION_AXIS {
 			RIGHT,

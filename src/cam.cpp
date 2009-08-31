@@ -63,3 +63,4 @@ void Cam::Turn(ROTATION_AXIS around, float angle) {
 	}
 	RemakeBase();
 }
+void Cam::Draw(SDL_Surface *s) {}

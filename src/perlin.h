@@ -3,7 +3,7 @@
 #include <SDL.h>
 #include "utils.h"
 #include <cmath>
-const Uint16 PERLIN_SIZE = 256;
+const Uint16 PERLIN_SIZE = MAP_SIZE;
 class Perlin {
 	public:
 		Perlin();

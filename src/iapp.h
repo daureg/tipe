@@ -2,14 +2,14 @@
 #define __I2APP
 #include "input.h"
 #include "object.h"
-#include "conf.h"
+#include "const.h"
 #include <vector>
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 class Iapp {
 	public:
-		Iapp(Conf*);
+		Iapp();
 		virtual ~Iapp();
 		int Run();
 	private:

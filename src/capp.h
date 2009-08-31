@@ -4,8 +4,8 @@
 #include "circle.h"
 class Capp : public App {
 	public:
-		Capp (Conf *);
-		virtual ~Capp ();
+		Capp();
+		virtual ~Capp();
 		void Draw();
 };
 #endif

@@ -1,9 +1,9 @@
 #include "gapp.h"
 
-Gapp::Gapp(Conf *c):App(c),m_cam(&Vector4(0,0,5,0)) {
+Gapp::Gapp():m_cam(&Vector4(0,0,5,0)) {
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
-	gluPerspective(70,(double)c->GetIntOption(ORES_X)/c->GetIntOption(ORES_Y),.1f,100);
+	gluPerspective(70,(double)RES_X/RES_Y,.1f,100);
 	glEnable(GL_DEPTH_TEST);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	m_vert = new float[N_VERTS*V_SIZE];

@@ -1,8 +1,7 @@
 #ifndef __UTILS
 #define __UTILS
 #include <cmath>
-#include "conf.h"
-const float EPSILON = 0.0005f;
+#include "const.h"
 inline int Clamp(int value,int min, int max) {
 	if (value > max)
 		return max;

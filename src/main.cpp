@@ -29,13 +29,12 @@ int main(int argc, char *argv[])
 			break;
 		}
 	if (cur_app!=255) {
-		Conf c1 = Conf();
 		if (cur_app==0) {
-			Tapp a = Tapp(&c1);
+			Tapp a = Tapp();
 			a.Run();
 		}
 		if (cur_app==1) {
-			Capp a = Capp(&c1);
+			Capp a = Capp();
 			a.Run();
 		}
 		if (cur_app==2) {
@@ -51,11 +50,11 @@ int main(int argc, char *argv[])
 			a.Run();
 		}
 		if (cur_app==5) {
-			Gapp a = Gapp(&c1);
+			Gapp a = Gapp();
 			a.Run();
 		}
 		if (cur_app==6) {
-			Iapp a = Iapp(&c1);
+			Iapp a = Iapp();
 			a.Run();
 		}
 		return EXIT_SUCCESS;

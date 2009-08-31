@@ -3,7 +3,8 @@
 #include <png.h>
 #include <SDL.h>
 #include <string>
-const Uint16 PICTURE_SIZE = 256;
+#include "const.h"
+const Uint16 PICTURE_SIZE = MAP_SIZE;
 typedef	struct PngImage {
 	std::string filename;
 	FILE* file;

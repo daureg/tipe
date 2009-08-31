@@ -1,9 +1,8 @@
 #include "iapp.h"
 Uint32 m_iframes = 0; 
-Iapp::Iapp(Conf *option):m_frames(0){
+Iapp::Iapp():m_frames(0){
 	SDL_Init(SDL_INIT_VIDEO);
-	m_screen = SDL_SetVideoMode(option->GetIntOption(ORES_X),
-			option->GetIntOption(ORES_Y), 32, SDL_OPENGL);
+	m_screen = SDL_SetVideoMode(RES_X, RES_Y, 32, SDL_OPENGL);
 	SDL_WM_SetCaption("Input", NULL);
 	m_draw_object.reserve(15);
 	m_anim_object.reserve(15);

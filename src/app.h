@@ -1,6 +1,6 @@
 #ifndef __APP
 #define __APP
-#include "conf.h"
+#include "const.h"
 #include "input.h"
 #include "utils.h"
 #include "object.h"
@@ -11,7 +11,7 @@
 #include <GL/glu.h>
 class App {
 	public:
-		App(Conf*);
+		App();
 		virtual ~App();
 		int Run();
 	protected:

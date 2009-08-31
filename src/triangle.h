@@ -1,7 +1,7 @@
 #ifndef __TRIANGLE
 #define __TRIANGLE
 #include <GL/gl.h>
-#include "conf.h"
+#include "const.h"
 class Triangle {
 	public:
 		Triangle();

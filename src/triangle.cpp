@@ -4,9 +4,9 @@ Triangle::Triangle():m_default(true) {
 	m_vertex[2]=380;m_vertex[3]=150;
 	m_vertex[4]=200;m_vertex[5]=50;
 	Sort();
-	m_l1 = new Uint16[SIZE];
-	m_l2 = new Uint16[SIZE];
-	m_l3 = new Uint16[SIZE];
+	m_l1 = new Uint16[SCREEN_SIZE];
+	m_l2 = new Uint16[SCREEN_SIZE];
+	m_l3 = new Uint16[SCREEN_SIZE];
 }
 Triangle::Triangle(Uint16 *t,Uint16 *l1,Uint16 *l2,Uint16 *l3): m_l1(l1),
 	m_l2(l2),m_l3(l3),m_default(false) {
@@ -43,9 +43,9 @@ void Triangle::DrawGL(Uint8 i) const {
 void Triangle::Draw() const {
 	Uint16 i,j,xmin,xmax,d1,d2,d3,red;
 
-	memset(m_l1,INF16,SIZE*sizeof(Uint16));
-	memset(m_l2,INF16,SIZE*sizeof(Uint16));
-	memset(m_l3,INF16,SIZE*sizeof(Uint16));
+	memset(m_l1,INF16,SCREEN_SIZE*sizeof(Uint16));
+	memset(m_l2,INF16,SCREEN_SIZE*sizeof(Uint16));
+	memset(m_l3,INF16,SCREEN_SIZE*sizeof(Uint16));
 
 	this->Line(m_vertex[0],m_vertex[1],m_vertex[4],m_vertex[5],m_l1);
 	this->Line(m_vertex[0],m_vertex[1],m_vertex[2],m_vertex[3],m_l2);

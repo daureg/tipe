@@ -1,8 +1,8 @@
 #include "capp.h"
-Capp::Capp(Conf *c):App(c) {
+Capp::Capp() {
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
-	gluPerspective(70,(double)c->GetIntOption(ORES_X)/c->GetIntOption(ORES_Y),1,100);
+	gluPerspective(70,(double)RES_X/RES_Y,1,100);
 	glEnable(GL_DEPTH_TEST);
 }
 

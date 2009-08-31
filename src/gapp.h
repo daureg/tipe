@@ -11,8 +11,8 @@ const Uint16 FPS = 60;
 
 class Gapp : public App {
 	public:
-		Gapp (Conf *);
-		virtual ~Gapp ();
+		Gapp();
+		virtual ~Gapp();
 		int Run();
 	private:
 		void Draw();

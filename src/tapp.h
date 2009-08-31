@@ -5,8 +5,8 @@
 const Uint16 NBTR=5;
 class Tapp : public App {
 	public:
-		Tapp (Conf *);
-		virtual ~Tapp ();
+		Tapp();
+		virtual ~Tapp();
 		void Draw();
 	private:
 		Triangle m_trs[NBTR];

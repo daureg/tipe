@@ -32,16 +32,8 @@ int Gapp::Run() {
 		m_ui.ProcessKeyboard(event.key);
 		if (m_ui.IsPressed("quit"))
 			return 0;
-		if (m_ui.IsPressed("screenshot")) {
-			FILE   *out = fopen("screen.tga", "w");
-			char   pixel_data[3*800*600];
-			short  TGAhead[] = {0, 2, 0, 0, 0, 0, 800, 600, 24};
-			glReadBuffer(GL_FRONT);
-			glReadPixels(0, 0, 800, 600, GL_BGR, GL_UNSIGNED_BYTE, pixel_data);
-			fwrite(&TGAhead, sizeof(TGAhead), 1, out);
-			fwrite(pixel_data, 3*800*600, 1, out);
-			fclose(out);
-		}
+		if (m_ui.IsPressed("screenshot"))
+			Screenshot();
 		current_time = SDL_GetTicks();
 		elapsed_time = current_time - last_time;
 		last_time = current_time;

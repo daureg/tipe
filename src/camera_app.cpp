@@ -1,6 +1,6 @@
-#include "gapp.h"
+#include "camera_app.h"
 
-Gapp::Gapp():m_cam(&Vector4(0,0,5,0)) {
+CameraApp::CameraApp():m_cam(&Vector4(0,0,5,0)) {
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 	gluPerspective(70,(double)RES_X/RES_Y,.1f,100);
@@ -14,40 +14,37 @@ Gapp::Gapp():m_cam(&Vector4(0,0,5,0)) {
 	m_idx[0]=0; m_idx[1]=1; m_idx[2]=2; m_idx[3]=0; m_idx[4]=2; m_idx[5]=3; m_idx[6]=4; m_idx[7]=0; m_idx[8]=3; m_idx[9]=4; m_idx[10]=3; m_idx[11]=7; m_idx[12]=5; m_idx[13]=4; m_idx[14]=7; m_idx[15]=5; m_idx[16]=7; m_idx[17]=6; m_idx[18]=1; m_idx[19]=5; m_idx[20]=6; m_idx[21]=1; m_idx[22]=6; m_idx[23]=2; m_idx[24]=4; m_idx[25]=5; m_idx[26]=1; m_idx[27]=4; m_idx[28]=1; m_idx[29]=0; m_idx[30]=2; m_idx[31]=6; m_idx[32]=7; m_idx[33]=2; m_idx[34]=7; m_idx[35]=3;
 }
 
-Gapp::~Gapp() {
+CameraApp::~CameraApp() {
 	delete [] m_vert;
 	delete [] m_col;
 	delete [] m_idx;
 }
-int Gapp::Run() {
+int CameraApp::Run() {
 	static SDL_Event event;
-	const Uint32 time_per_frame = 1000/FPS;
-	Uint32 last_time,current_time,elapsed_time; //for time animation
-	Uint32 start_time,stop_time; //for frame limit;
+	bool run = GLEW_ARB_vertex_buffer_object;
+	Uint32 last_time,current_time,elapsed_time;
 	last_time = SDL_GetTicks();
-
-	while (true) {
-		start_time = SDL_GetTicks();
+	while (run) {
+		/* Get input */
 		SDL_PollEvent(&event);
-		m_ui.ProcessKeyboard(event.key);
-		if (m_ui.IsPressed("quit"))
-			return 0;
-		if (m_ui.IsPressed("screenshot"))
+		m_input.ProcessKeyboard(event.key);
+		/* Process generic event */
+		if (m_input.IsPressed("quit"))
+			return EXIT_SUCCESS;
+		if (m_input.IsPressed("screenshot"))
 			Screenshot();
+
+		/* Process object event */		
 		current_time = SDL_GetTicks();
 		elapsed_time = current_time - last_time;
 		last_time = current_time;
-		m_cam.Anim(elapsed_time,&m_ui);
+		m_cam.Anim(elapsed_time, &m_input);
 		Draw();
-		stop_time = SDL_GetTicks();
-		if ((stop_time - last_time) < time_per_frame)
-		{
-			SDL_Delay(time_per_frame - (stop_time - last_time));
-		}
-
 	}
+	fprintf(stderr,"You don't have the GL_ARB_vertex_buffer_object extension\n");
+	return EXIT_FAILURE;
 }
-void Gapp::Draw() {
+void CameraApp::Draw() {
 	m_frames++;
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glMatrixMode( GL_MODELVIEW );
@@ -68,11 +65,6 @@ void Gapp::Draw() {
         /* desactivation des tableaux de sommet */
         glDisableClientState(GL_COLOR_ARRAY);
         glDisableClientState(GL_VERTEX_ARRAY);
-
-/*
-	glBegin(GL_QUADS);
-	glColor3ub(255,0,0); glVertex3d(1,1,1); glVertex3d(1,1,-1); glVertex3d(-1,1,-1); glVertex3d(-1,1,1); glColor3ub(0,255,0); glVertex3d(1,-1,1); glVertex3d(1,-1,-1); glVertex3d(1,1,-1); glVertex3d(1,1,1); glColor3ub(0,0,255); glVertex3d(-1,-1,1); glVertex3d(-1,-1,-1); glVertex3d(1,-1,-1); glVertex3d(1,-1,1); glColor3ub(255,255,0); glVertex3d(-1,1,1); glVertex3d(-1,1,-1); glVertex3d(-1,-1,-1); glVertex3d(-1,-1,1); glColor3ub(0,255,255); glVertex3d(1,1,-1); glVertex3d(1,-1,-1); glVertex3d(-1,-1,-1); glVertex3d(-1,1,-1); glColor3ub(255,0,255); glVertex3d(1,-1,1); glVertex3d(1,1,1); glVertex3d(-1,1,1); glVertex3d(-1,-1,1);
-	glEnd();*/
 
 	glFlush();
 	SDL_GL_SwapBuffers();

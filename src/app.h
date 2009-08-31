@@ -19,12 +19,12 @@ class App {
 		virtual void Draw();
 		SDL_Surface *m_screen;
 		Uint32 m_frames;
+		Input m_input;
 	private:
 		void AddDrawObject(Object*);
 		void AddAnimObject(Object*);
 
 		std::vector<Object*> m_draw_object;
 		std::vector<Object*> m_anim_object;
-		Input m_input;
 };
 #endif

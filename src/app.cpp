@@ -25,7 +25,8 @@ int App::Run() {
 		m_input.ProcessKeyboard(event.key);
 		if (m_input.IsPressed("quit"))
 			return 0;
-		// TODO screenshot
+		if (m_input.IsPressed("screenshot"))
+			Screenshot();
 		Draw();
 		last=newer;
 	}

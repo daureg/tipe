@@ -1,14 +1,15 @@
 #ifndef __APP
 #define __APP
-#include "const.h"
-#include "input.h"
-#include "utils.h"
-#include "object.h"
 #include <vector>
 #include <time.h>
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include "const.h"
+#include "input.h"
+#include "utils.h"
+#include "object.h"
+
 class App {
 	public:
 		App();

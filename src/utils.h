@@ -1,7 +1,11 @@
 #ifndef __UTILS
 #define __UTILS
 #include <cmath>
+#include <GL/gl.h>
 #include "const.h"
+
+void Screenshot(SDL_Surface *s=NULL);
+
 inline int Clamp(int value,int min, int max) {
 	if (value > max)
 		return max;

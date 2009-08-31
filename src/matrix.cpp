@@ -125,7 +125,7 @@ Matrix Matrix::Scale(float f) {
 Matrix Matrix::Translate(Vector4 *v) {
 	float tmp[16];
 	for (Uint8 i=0; i<15; i++)
-		((1+i)%4) ? tmp[i]=0.0f : tmp[i]=(*v)((1+i)/4);
+		((1+i)%4) ? ((i%5) ? tmp[i]=0.0f : tmp[i]=1.0f) : tmp[i]=(*v)((1+i)/4);
 	tmp[15]=1.0f;
 	return Matrix(tmp);
 }

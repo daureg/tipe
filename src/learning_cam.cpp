@@ -46,7 +46,7 @@ void LearningCam::Print() {
 void LearningCam::Anim(Uint16 elapsed, Input *ui) {
 	float _speed = 0.01f;
 	float rot_speed = 0.09f; // 45 degres in 500 ms
-	static count=0;
+	static int count=0;
 	count++;
 	if (ui->IsPressed("forward"))
 		m_pos = m_pos + m_look * (_speed * elapsed);

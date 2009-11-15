@@ -17,7 +17,9 @@ class CameraApp : public App {
 		void Draw();
 		Cam m_cam;
 		float *m_vert;
-		unsigned char *m_col;
+		float *m_col;
 		unsigned char *m_idx;
+		GLuint m_buf;
+		GLuint m_buf_index;
 };
 #endif

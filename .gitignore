@@ -3,3 +3,4 @@ build/
 src/config.h
 sandbox/
 src/tags
+*.swp

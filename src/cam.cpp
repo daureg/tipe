@@ -5,8 +5,8 @@ Cam::Cam(Vector4 *p):m_pos(*p),m_up(Vector4(0.0f,1.0f,0.0f,0.0f)),m_look(Vector4
 	m_right(Vector4(1.0f,0.0f,0.0f,0.0f)) {}
 void Cam::Anim(Uint16 elapsed, Input *ui)
 {
-	float _speed = 0.01f;
-	float rot_speed = 0.09f; // 45 degres in 500 ms
+	float _speed = 0.01f*(ui->IsPressed("speed") ? 10.0f : 1.0f);
+	float rot_speed = 0.09f*(ui->IsPressed("speed") ? 4.0f : 1.0f); // 45 degres in 500 ms
 	if (ui->IsPressed("forward"))
 		m_pos = m_pos + m_look * (_speed * elapsed);
 	if (ui->IsPressed("backward"))

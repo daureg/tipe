@@ -14,12 +14,12 @@ class Cam : public Object {
 		void Anim(Uint16, Input*);
 		void Look();
 		void Draw(SDL_Surface*);
-	private:
 		enum ROTATION_AXIS {
 			RIGHT,
 			LOOK,
 			UP };
 		void Turn(ROTATION_AXIS, float);
+	private:
 		void RemakeBase();
 			
 		Vector4 m_pos;

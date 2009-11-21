@@ -7,10 +7,8 @@
 #include "wpng.h"
 
 #define BUFFER_OFFSET(a) ((char*)NULL + (a))
-const Uint16 N__VERTS = 8;
 const Uint16 V__SIZE = 3;
 const Uint16 C__SIZE = 3;
-const Uint16 NUM__VERTICES = 36;
 
 class Grid : public Object {
 	public:
@@ -24,12 +22,14 @@ class Grid : public Object {
 		Perlin m_perlin;
 		float *m_vertex;
 		float *m_color;
-		Uint8 *m_index;
-		Uint8 m_heigth;
-		Uint8 m_scale;
-		Uint8 m_cellspace;
+		Uint32 *m_index;
+		Uint8 *m_height;
+		float m_scale;
+		float m_cellspace;
 		GLuint m_buf;
 		GLuint m_buf_index;
+		Uint32 m_nb_vert;
+		Uint32 m_nb_idx;
 
 };
 #endif /* end of include guard: __GRID */

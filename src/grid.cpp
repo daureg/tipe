@@ -38,7 +38,7 @@ m_nb_vert(3*size*size),m_nb_idx(6*(size-1)*(size-1)),m_scale(0.06f) {
 			m_vertex[index+1]=m_height[i*size+j]*m_scale;
 			m_vertex[index+2]=z;
 			m_color[index]=0.0f;
-			m_color[index+1]=1.0f;
+			m_color[index+1]=0.0f;
 			m_color[index+2]=0.0f;
 			index+=3;
 			j++;

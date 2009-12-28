@@ -1,6 +1,6 @@
 #include <ctime>
 #include <string>
-#include "capp.h"
+#include "pyr_app.h"
 #include "triangle_app.h"
 #include "png_app.h"
 #include "perlin_app.h"
@@ -8,8 +8,8 @@
 #include "proj_app.h"
 #include "grid_app.h"
 const Uint8 NAPP = 7;
-const std::string APP[NAPP] = {"triangle","cube","png","perlin","camera","proj","grid"};
-const std::string DAPP[NAPP] = {"Affiches des triangles en 2D","Affiche un cube en 3D",
+const std::string APP[NAPP] = {"triangle","pyr","png","perlin","camera","proj","grid"};
+const std::string DAPP[NAPP] = {"Affiches des triangles en 2D","Affiche une pyramide en 3D",
 "Lit et écrit une image png","Crée une carte de perlin","Un cube avec une caméra dirigée au clavier",
 "Projete un sommet à l'écran","Dessine un maillage" };
 int Help() {
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 			return a.Run();
 		}
 		if (cur_app==1) {
-			Capp a = Capp();
+			PyrApp a = PyrApp();
 			return a.Run();
 		}
 		if (cur_app==2) {

@@ -11,6 +11,8 @@ ProjApp::~ProjApp() {}
 void ProjApp::Draw() {
 	m_frames++;
 	Vector4 rs;
+	float d=(m_pos-m_cam.GetPos()).Norm();
+	glPointSize(50.0f/d);
 	Uint16 x,y;
 	rs=m_cam.Proj(&m_pos);
 	x=(rs(1)/rs(4)+1)*(RES_X)/2;

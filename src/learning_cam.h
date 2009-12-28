@@ -21,6 +21,7 @@ class LearningCam : public Object {
 		void Turn(ROTATION_AXIS, float);
 		void Print();
 		void Anim(Uint16, Input*);
+		Vector4 GetPos() const;
 
 		void Draw(SDL_Surface*);
 		void MakeAlignMatrix();

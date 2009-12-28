@@ -44,17 +44,17 @@ void LearningCam::Print() {
 	printf("u:");m_up.Print();
 }
 void LearningCam::Anim(Uint16 elapsed, Input *ui) {
-	float _speed = 0.01f;
-	float rot_speed = 0.09f; // 45 degres in 500 ms
+	float _speed = 0.01f*(ui->IsPressed("speed") ? 10.0f : 1.0f);
+	float rot_speed = 0.09f*(ui->IsPressed("speed") ? 4.0f : 1.0f); // 45 degres in 500 ms
 	static int count=0;
 	count++;
 	if (ui->IsPressed("forward"))
 		m_pos = m_pos + m_look * (_speed * elapsed);
 	if (ui->IsPressed("backward"))
 		m_pos = m_pos - m_look * (_speed * elapsed);
-	if (ui->IsPressed("up"))
-		m_pos = m_pos + m_up * (_speed * elapsed);
 	if (ui->IsPressed("down"))
+		m_pos = m_pos + m_up * (_speed * elapsed);
+	if (ui->IsPressed("up"))
 		m_pos = m_pos - m_up * (_speed * elapsed);
 	if (ui->IsPressed("left"))
 		m_pos = m_pos - m_right * (_speed * elapsed);
@@ -64,11 +64,11 @@ void LearningCam::Anim(Uint16 elapsed, Input *ui) {
 		this->Turn(UP,rot_speed*elapsed);
 	if (ui->IsPressed("look_right"))
 		this->Turn(UP,-rot_speed*elapsed);
-	if (ui->IsPressed("look_up"))
-		this->Turn(RIGHT,rot_speed*elapsed);
 	if (ui->IsPressed("look_down"))
+		this->Turn(RIGHT,rot_speed*elapsed);
+	if (ui->IsPressed("look_up"))
 		this->Turn(RIGHT,-rot_speed*elapsed);
-	if (count%15==0)
+	if (count%50==0)
 		RemakeBase(); //make sure the base is still orthonormal
 	MakeAlignMatrix();
 }
@@ -127,3 +127,4 @@ void LearningCam::MakeAlignMatrix() {
 	m_full = m_proj * m_align;
 }
 void LearningCam::Draw(SDL_Surface *s) {}
+Vector4 LearningCam::GetPos() const { return m_pos; }

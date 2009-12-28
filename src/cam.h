@@ -13,6 +13,7 @@ class Cam : public Object {
 		void Move(Vector4*);
 		void Anim(Uint16, Input*);
 		void Look();
+		void Print();
 		void Draw(SDL_Surface*);
 		enum ROTATION_AXIS {
 			RIGHT,

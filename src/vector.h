@@ -28,6 +28,7 @@ class Vector4 {
 		static Vector4 Null();
 		
 		float Norm() const;
+		float Norm2() const;
 		Vector4 Normalize();
 		void Print() const;
 	private:

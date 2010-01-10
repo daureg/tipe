@@ -44,4 +44,7 @@ inline void Swap(Uint8 *t,Uint8 a,Uint8 b) {
 	t[a] = t[b];
 	t[b] = tmp;
 }
+inline Uint8 Max(Uint8 a, Uint8 b) { return (a<b) ? b : a; }
+inline int Max(int a, int b) { return (a<b) ? b : a; }
+inline float Max(float a, float b) { return (a<b) ? b : a; }
 #endif

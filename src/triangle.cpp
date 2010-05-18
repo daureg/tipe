@@ -53,7 +53,6 @@ void Triangle::Draw() const {
 
 	for (j=m_vertex[1];j<=m_vertex[3];j++) {
 		if (m_l1[j]!=INF16 && m_l2[j]!=INF16) {
-			/*
 			xmin = (m_l1[j] < m_l2[j]) ? m_l1[j] : m_l2[j];
 			xmax = (m_l1[j] > m_l2[j]) ? m_l1[j] : m_l2[j];
 			for (i=xmin;i<=xmax;i++) {
@@ -66,16 +65,16 @@ void Triangle::Draw() const {
 				glVertex2i(i,j);
 				glEnd();
 			}
-			*/
+			/*
 			glBegin(GL_LINES);
 			glVertex2i(m_l1[j],j);
 			glVertex2i(m_l2[j],j);
 			glEnd();
+			*/
 		}
 	}
 	for (j=m_vertex[3]+1;j<=m_vertex[5];j++) {
 		if (m_l1[j]!=INF16 && m_l3[j]!=INF16) {
-			/*
 			   xmin = (m_l1[j] < m_l3[j]) ? m_l1[j] : m_l3[j];
 			   xmax = (m_l1[j] > m_l3[j]) ? m_l1[j] : m_l3[j];
 			   for (i=xmin;i<=xmax;i++) {
@@ -88,11 +87,12 @@ void Triangle::Draw() const {
 			   glVertex2i(i,j);
 			   glEnd();
 			   }
-			   */
+			/*
 			glBegin(GL_LINES);
 			glVertex2i(m_l1[j],j);
 			glVertex2i(m_l3[j],j);
 			glEnd();
+			*/
 		}
 	}
 }

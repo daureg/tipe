@@ -27,7 +27,7 @@ void TriangleApp::Draw() {
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity( );
 	for (Uint8 i = 0; i < NBTR; i++)
-	       	m_trs[i].DrawGL(5*i);
+	       	m_trs[i].Draw();
 	glFlush();
 	SDL_GL_SwapBuffers();
 }

@@ -19,9 +19,13 @@ class Color {
 		bool operator==(const Color &) const;
 		bool operator!=(const Color &) const;
 		void Print() const;
+
 	private:
 		float _r;
 		float _g;
 		float _b;
 };
+static const Color White=Color(1.0f,1.0f,1.0f);
+static const Color Red=Color(1.0f,0.0f,0.0f);
+static const Color Blue=Color(0.0f,0.0f,1.0f);
 #endif

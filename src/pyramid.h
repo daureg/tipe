@@ -4,7 +4,6 @@
 #include "object.h"
 #include "vector.h"
 #include "matrix.h"
-#include "input.h"
 #include "learning_cam.h"
 
 class Pyramid : public Object {

@@ -10,7 +10,7 @@ void Screenshot(SDL_Surface *s) {
 		char pixel_data[3*RES_X*RES_Y];
 		short TGAhead[] = {0, 2, 0, 0, 0, 0, RES_X, RES_Y, 24};
 		glReadBuffer(GL_FRONT);
-		glReadPixels(0, 0, RES_X, RES_Y, GL_BGR, GL_UNSIGNED_BYTE, pixel_data);
+		glReadPixels(0, 0, RES_X, RES_Y, GL_RGB, GL_UNSIGNED_BYTE, pixel_data);
 		fwrite(&TGAhead, sizeof(TGAhead), 1, out);
 		fwrite(pixel_data, 3*RES_X*RES_Y, 1, out);
 		fclose(out);

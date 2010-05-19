@@ -2,12 +2,12 @@
 SET(CMAKE_SYSTEM_NAME Windows)
 
 # which compilers to use for C and C++
-SET(CMAKE_C_COMPILER i486-mingw32-gcc)
-SET(CMAKE_CXX_COMPILER i486-mingw32-g++)
-SET(WIN32 1)
+SET(CMAKE_C_COMPILER i586-mingw32msvc-gcc)
+SET(CMAKE_CXX_COMPILER i586-mingw32msvc-g++)
+SET(WIN32msvc 1)
 
 # here is the target environment located
-SET(CMAKE_FIND_ROOT_PATH /usr/i486-mingw32/ )
+SET(CMAKE_FIND_ROOT_PATH /usr/i586-mingw32msvc/ )
 
 # adjust the default behaviour of the FIND_XXX() commands:
 # search headers and libraries in the target environment, search 

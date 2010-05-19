@@ -1,9 +1,11 @@
 #include "grid.h"
-Grid::Grid(Uint16 size=MAP_SIZE):m_png("outmap.png"),m_perlin(size,5,0.7f),m_cellspace(0.9f),
-m_nb_vert(3*size*size),m_nb_idx(6*(size-1)*(size-1)),m_scale(0.06f) {
+Grid::Grid(Uint16 size=MAP_SIZE):m_png("outmap.png"),m_perlin(size,5,0.7f),m_scale(0.06f),
+	m_cellspace(0.9f), m_nb_vert(3*size*size),m_nb_idx(6*(size-1)*(size-1)),
+m_max_slope(0), m_min_slope(255), m_size(size) {
 	m_vertex = new float[m_nb_vert];
 	m_color = new float[m_nb_vert];
 	m_index = new Uint32[m_nb_idx];
+	m_slope = new float[size*size];
 
 	float tmp=0.0f;
 	Uint8 expand=0;
@@ -29,7 +31,15 @@ m_nb_vert(3*size*size),m_nb_idx(6*(size-1)*(size-1)),m_scale(0.06f) {
 		for (j=0;j<size;j++)
 			m_height[size*i+j]=Uint8((m_height[size*i+j]-hmin)*tmp);
 
+	//Compute Slopes
+	for (i=0;i<size;i++)
+		for (j=0;j<size;j++)
+			m_slope[size*i+j]=MakeSlope(i,j);
+	printf("%.3f - %.3f\n",m_min_slope,m_max_slope);
+
+
 	float xe=m_cellspace*size;
+	Color c;
 	i=0;
 	for (float x = 0; x < xe; x+=m_cellspace) {
 		j=0;
@@ -37,9 +47,15 @@ m_nb_vert(3*size*size),m_nb_idx(6*(size-1)*(size-1)),m_scale(0.06f) {
 			m_vertex[index]=x;
 			m_vertex[index+1]=m_height[i*size+j]*m_scale;
 			m_vertex[index+2]=z;
+			c=MakeColor(i,j);
+			/*
 			m_color[index]=0.0f;
-			m_color[index+1]=0.0f;
+			m_color[index+1]=1.0f*(1.0f-(m_height[i*size+j]/255.0f));
 			m_color[index+2]=0.0f;
+			*/
+			m_color[index]=c(1);
+			m_color[index+1]=c(2);
+			m_color[index+2]=c(3);
 			index+=3;
 			j++;
 		}
@@ -88,9 +104,66 @@ Grid::~Grid() {
 	delete [] m_vertex;
 	delete [] m_color;
 	delete [] m_index;
+	delete [] m_height;
+	delete [] m_slope;
 	glDeleteBuffers(1, &m_buf);
 	glDeleteBuffers(1, &m_buf_index);
 }
+Color Grid::MakeColor(Uint16 i, Uint16 j) const {
+	Uint8 z=m_height[i*m_size+j];
+	float s=(m_slope[i*m_size+j]-m_min_slope)/(m_max_slope-m_min_slope);
+	if (z>=0 and z<=64)
+		return LIGHT_GREEN*(1-z/64)+PURE_GREEN*(z/64)-BLACK*(s/3);
+	if (z>64 and z<=128)
+		return PURE_GREEN*(1-(z-64)/64)+DARK_GREEN*((z-64)/64)-BLACK*(s/3);
+	if (z>128 and z<=192)
+		return DARK_GREEN*(1-(z-128)/64)+ROCK_LIGHT*((z-128)/64)-BLACK*(s/3);
+	if (z>192 and z<=255)
+		return ROCK_LIGHT*(1-(z-192)/64)+SNOW*((z-192)/64)-BLACK*(s/3);
+}
+float Grid::MakeSlope(Uint16 i, Uint16 j) {
+	Uint8 count=0, idx=i*m_size+j, h=m_height[idx];
+	float slope=.0f;
+	if (i>0) {
+		if (j>0) {
+			slope+=abs(m_height[idx-m_size-1]-h);
+			count++;
+		}	
+		slope+=abs(m_height[idx-m_size]-h);
+		count++;
+		if (j<m_size) {
+			slope+=abs(m_height[idx-m_size+1]-h);
+			count++;
+		}
+	}
+	if (j>0) {
+		slope+=abs(m_height[idx-1]-h);
+		count++;
+	}	
+	if (j<m_size) {
+		slope+=abs(m_height[idx+1]-h);
+		count++;
+	}
+	if (i<m_size) {
+		if (j>0) {
+			slope+=abs(m_height[idx+m_size-1]-h);
+			count++;
+		}	
+		slope+=abs(m_height[idx+m_size]-h);
+		count++;
+		if (j<m_size) {
+			slope+=abs(m_height[idx+m_size+1]-h);
+			count++;
+		}
+	}
+	slope=slope/count;
+	if (slope < m_min_slope)
+		m_min_slope=slope;
+	if (slope > m_max_slope)
+		m_max_slope=slope;
+	return slope;
+}
+
 void Grid::Draw(SDL_Surface *s) {
 	glBindBuffer(GL_ARRAY_BUFFER, m_buf);
 	glVertexPointer(V__SIZE, GL_FLOAT, 0, BUFFER_OFFSET(0));

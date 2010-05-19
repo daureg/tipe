@@ -7,7 +7,7 @@
 # GLEW_FOUND
 # GLEW_INCLUDE_PATH
 # GLEW_LIBRARY
-# 
+#
 FIND_PATH( GLEW_INCLUDE_PATH GL/glew.h
 	/usr/include
 	/usr/local/include

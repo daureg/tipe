@@ -33,9 +33,13 @@ float Perlin::InterCos2D(float a, float b, float c, float d, float x, float y) {
 	return Perlin::InterCos(InterCos(a,b,x),InterCos(c,d,x),y);
 }
 void Perlin::FillRandom() {
-	Uint32 i;
+	Uint32 i,ii;
 	m_random = new float[m_size*m_size];
-	for (i = 0; i<(Uint32)m_size*m_size; i++)
+	for (i = 0; i<(Uint32)m_size*m_size; i++) /*{
+		i = (i >> 13) ^ i;
+		ii = (i * (i * i * 60493 + 19990303) + 1376312589) & 0x7fffffff;
+		m_random[i] = .5f*((float)ii / 1073741824.0);
+	}*/
 		m_random[i] = rand()/float(RAND_MAX);
 	m_pcache = new float[m_octaves];
 	m_pcache[0]=1.0f;

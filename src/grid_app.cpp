@@ -5,7 +5,7 @@ GridApp::GridApp():m_cam(&Vector4(5,5,20,0)),m_grid(56) {
 	gluPerspective(70,(double)RES_X/RES_Y,.1f,100);
 	glEnable(GL_DEPTH_TEST);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glClearColor(1.0f,1.0f,1.0,0.0f);
+	glClearColor(.25f,.75f,1.0,0.0f);
 	AddAnimObject(&m_cam);
 	m_cam.Turn(Cam::RIGHT, -45);
 }

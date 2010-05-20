@@ -41,7 +41,7 @@ void Triangle::DrawGL(Uint8 i) const {
 	glEnd();
 }
 void Triangle::Draw() const {
-	Uint16 i,j,xmin,xmax,d1,d2,d3,red;
+	Uint16 j,xmin,xmax;
 
 	memset(m_l1,INF16,SCREEN_SIZE*sizeof(Uint16));
 	memset(m_l2,INF16,SCREEN_SIZE*sizeof(Uint16));
@@ -55,47 +55,51 @@ void Triangle::Draw() const {
 		if (m_l1[j]!=INF16 && m_l2[j]!=INF16) {
 			xmin = (m_l1[j] < m_l2[j]) ? m_l1[j] : m_l2[j];
 			xmax = (m_l1[j] > m_l2[j]) ? m_l1[j] : m_l2[j];
-			for (i=xmin;i<=xmax;i++) {
-				d1=abs(i-m_vertex[0])+abs(j-m_vertex[1]);
-				d2=abs(i-m_vertex[2])+abs(j-m_vertex[3]);
-				d3=abs(i-m_vertex[4])+abs(j-m_vertex[5]);
-				red=(255*d1+128*d2+64*d3)/(d1+d2+d3);
-				glColor3ub(red,0,0);
-				glBegin(GL_POINTS);
-				glVertex2i(i,j);
-				glEnd();
-			}
+			this->DrawSegment(xmin,xmax,j);
 			/*
-			glBegin(GL_LINES);
-			glVertex2i(m_l1[j],j);
-			glVertex2i(m_l2[j],j);
-			glEnd();
-			*/
+			   glBegin(GL_LINES);
+			   glVertex2i(m_l1[j],j);
+			   glVertex2i(m_l2[j],j);
+			   glEnd();
+			   */
 		}
 	}
 	for (j=m_vertex[3]+1;j<=m_vertex[5];j++) {
 		if (m_l1[j]!=INF16 && m_l3[j]!=INF16) {
-			   xmin = (m_l1[j] < m_l3[j]) ? m_l1[j] : m_l3[j];
-			   xmax = (m_l1[j] > m_l3[j]) ? m_l1[j] : m_l3[j];
-			   for (i=xmin;i<=xmax;i++) {
-			   d1=abs(i-m_vertex[0])+abs(j-m_vertex[1]);
-			   d2=abs(i-m_vertex[2])+abs(j-m_vertex[3]);
-			   d3=abs(i-m_vertex[4])+abs(j-m_vertex[5]);
-			   red=(255*d1+128*d2+64*d3)/(d1+d2+d3);
-			   glColor3ub(red,0,0);
-			   glBegin(GL_POINTS);
-			   glVertex2i(i,j);
-			   glEnd();
-			   }
+			xmin = (m_l1[j] < m_l3[j]) ? m_l1[j] : m_l3[j];
+			xmax = (m_l1[j] > m_l3[j]) ? m_l1[j] : m_l3[j];
+			this->DrawSegment(xmin,xmax,j);
 			/*
-			glBegin(GL_LINES);
-			glVertex2i(m_l1[j],j);
-			glVertex2i(m_l3[j],j);
-			glEnd();
-			*/
+			   glBegin(GL_LINES);
+			   glVertex2i(m_l1[j],j);
+			   glVertex2i(m_l3[j],j);
+			   glEnd();
+			   */
 		}
 	}
 }
+void Triangle::DrawSegment(Uint16 xmin, Uint16 xmax, Uint16 j) const {	
+	Uint16 i,d1,d2,d3;
+	float r1,r2,r3,sum;
+	Color c;
+	for (i=xmin;i<=xmax;i++) {
+		d1=(i-m_vertex[0])*(i-m_vertex[0])+(j-m_vertex[1])*(j-m_vertex[1]);
+		d2=(i-m_vertex[2])*(i-m_vertex[2])+(j-m_vertex[3])*(j-m_vertex[3]);
+		d3=(i-m_vertex[4])*(i-m_vertex[4])+(j-m_vertex[5])*(j-m_vertex[5]);
+		r1=1/sqrt(d1);
+		r2=1/sqrt(d2);
+		r3=1/sqrt(d3);
+		sum=1/(r1+r2+r3);
+		c.Change((r1*m_colors[0](1)+r2*m_colors[1](1)+r3*m_colors[2](1))*sum,
+			 (r1*m_colors[0](2)+r2*m_colors[1](2)+r3*m_colors[2](2))*sum,
+			 (r1*m_colors[0](3)+r2*m_colors[1](3)+r3*m_colors[2](3))*sum);
+		glColor3f(c(1),c(2),c(3));
+		glBegin(GL_POINTS);
+		glVertex2i(i,j);
+		glEnd();
+	}
+}
+
 // le premier est sommet est le plus proche du coin supérieur gauche et les deux
 // autres sont rangés par hauteur croissante.
 void Triangle::Sort() {
@@ -160,8 +164,22 @@ void Triangle::Line(Uint16 xi,Uint16 yi,Uint16 xf,Uint16 yf,Uint16 *px) const {
 void Triangle::Swap(Uint8 p1,Uint8 p2) {
 	Uint16 tx=m_vertex[2*p1];
 	Uint16 ty=m_vertex[2*p1+1];
+	Color tc=m_colors[p1];
 	m_vertex[2*p1]=m_vertex[2*p2];
 	m_vertex[2*p1+1]=m_vertex[2*p2+1];
 	m_vertex[2*p2]=tx;
 	m_vertex[2*p2+1]=ty;
+	m_colors[p1]=m_colors[p2];
+	m_colors[p2]=tc;
 }
+void Triangle::SetColors(Color *c1, Color *c2, Color *c3) {
+	m_colors[0]=*c1;
+	m_colors[1]=*c2;
+	m_colors[2]=*c3;
+}
+void Triangle::Print() const {
+	printf("Point %d : (%d,%d), ",0+1,m_vertex[2*0],m_vertex[2*0+1]);m_colors[0].Print();
+	printf("Point %d : (%d,%d), ",1+1,m_vertex[2*1],m_vertex[2*1+1]);m_colors[1].Print();
+	printf("Point %d : (%d,%d), ",2+1,m_vertex[2*2],m_vertex[2*2+1]);m_colors[2].Print();
+}
+

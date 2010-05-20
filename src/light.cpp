@@ -6,8 +6,9 @@ Light::Light(LTYPE type, Color col, Vector4 pos, Vector4 dir) : m_type(type),
 	m_att1(1.0f), m_att2(1.0f) {}
 Light::~Light() {}
 
+Vector4 Light::GetDir() const { return m_dir; }
 Color Light::ReceiveFrom(Vector4 pos) {
-	if (m_type==DIR)
+	if (m_type==DIR or m_type==AMBIENT)
 		return m_color;
 	float d2=(m_pos-pos).Norm2();
 	float d = m_att0 + std::sqrt(d2)*m_att1 +d2*m_att2;

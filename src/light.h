@@ -6,6 +6,7 @@
 #include "vector.h"
 
 enum LTYPE {
+	AMBIENT,
 	POINT,
 	SPOT,
 	DIR };
@@ -16,6 +17,7 @@ class Light {
 		Light(LTYPE, Color, Vector4, Vector4);
 		virtual ~Light();
 
+		Vector4 GetDir() const;
 		Color ReceiveFrom(Vector4);
 	
 	private:

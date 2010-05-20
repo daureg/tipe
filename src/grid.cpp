@@ -1,4 +1,7 @@
 #include "grid.h"
+float stat[4]={0,0,0,0};
+float sm=.0f;
+int co=0;
 Grid::Grid(Uint16 size=MAP_SIZE):m_png("outmap.png"),m_perlin(size,5,0.7f),m_scale(0.06f),
 	m_cellspace(0.9f), m_nb_vert(3*size*size),m_nb_idx(6*(size-1)*(size-1)),
 m_max_slope(0), m_min_slope(255), m_size(size) {
@@ -25,11 +28,52 @@ m_max_slope(0), m_min_slope(255), m_size(size) {
 			m_height[size*i+j]=height;
 		}
 	printf("%d - %d\n",hmin,hmax);
+	int t=0;
+	memset( m_stat, 0, 32*sizeof(int) );
 	// Rescale to 0-255
 	tmp=(255/float(hmax-hmin));
 	for (i=0;i<size;i++)
-		for (j=0;j<size;j++)
+		for (j=0;j<size;j++) {
 			m_height[size*i+j]=Uint8((m_height[size*i+j]-hmin)*tmp);
+			t=m_height[size*i+j];
+			if (t==0)
+				m_stat[0]++;
+			else
+				m_stat[int(ceil(t/8))]++;
+		}
+	for (i = 0; i < 32; i++) {
+		printf("%d - %d : %d\n",i*8,i*8+8,m_stat[i]);
+	}
+	int a,b,c2;
+	int sum=0;
+	int tot=size*size/4;
+	i=0;
+	while (sum<tot) {
+		sum+=m_stat[i];
+		i++;
+	}
+	a=8*i;
+	printf("le premier quart (%d au lieu de %d), se situe à %d\n",sum,tot,a);
+	sum=0;
+	while (sum<tot) {
+		sum+=m_stat[i];
+		i++;
+	}
+	b=8*i;
+	printf("le deuxieme quart (%d au lieu de %d), se situe à %d\n",sum,tot,b);
+	sum=0;
+	while (i<32 && sum<tot) {
+		sum+=m_stat[i];
+		i++;
+	}
+	c2=8*i;
+	printf("le troisième quart (%d au lieu de %d), se situe à %d\n",sum,tot,c2);
+	/*LEVEL1=a;
+	LEVEL2=b;
+	LEVEL3=c2;*/
+
+	
+
 
 	//Compute Slopes
 	for (i=0;i<size;i++)
@@ -61,6 +105,9 @@ m_max_slope(0), m_min_slope(255), m_size(size) {
 		}
 		i++;
 	}
+
+	printf("%d, %d, %d, %d\n",stat[0],stat[1],stat[2],stat[3]);
+
 	index=0;
 	for (i = 0; i < size-1; i++) {
 		for (j = 0; j < size-1; j++) {
@@ -99,6 +146,7 @@ m_max_slope(0), m_min_slope(255), m_size(size) {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_nb_idx * sizeof(m_index[0]), NULL, GL_STATIC_DRAW);
 	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, m_nb_idx * sizeof(m_index[0]), m_index);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	printf("Indice moyen de pente : %.3f\n", sm/co);
 }
 Grid::~Grid() {	
 	delete [] m_vertex;
@@ -112,14 +160,20 @@ Grid::~Grid() {
 Color Grid::MakeColor(Uint16 i, Uint16 j) const {
 	Uint8 z=m_height[i*m_size+j];
 	float s=(m_slope[i*m_size+j]-m_min_slope)/(m_max_slope-m_min_slope);
-	if (z>=0 and z<=64)
-		return LIGHT_GREEN*(1-z/64)+PURE_GREEN*(z/64)-BLACK*(s/3);
-	if (z>64 and z<=128)
-		return PURE_GREEN*(1-(z-64)/64)+DARK_GREEN*((z-64)/64)-BLACK*(s/3);
-	if (z>128 and z<=192)
-		return DARK_GREEN*(1-(z-128)/64)+ROCK_LIGHT*((z-128)/64)-BLACK*(s/3);
-	if (z>192 and z<=255)
-		return ROCK_LIGHT*(1-(z-192)/64)+SNOW*((z-192)/64)-BLACK*(s/3);
+	sm+=s;
+	co++;
+	if (z>=0 and z<=LEVEL1) {stat[0]++;
+		return SAND_BEACH*(1-z/float(LEVEL1))+PURE_GREEN*(z/float(LEVEL1))-BLACK*(s/3);
+	}
+	if (z>LEVEL1 and z<=LEVEL2) {stat[1]++;
+		return PURE_GREEN*(1-(z-LEVEL1)/float(LEVEL2-LEVEL1))+DARK_GREEN*((z-LEVEL1)/float(LEVEL2-LEVEL1))-BLACK*(s/3);
+	}
+	if (z>LEVEL2 and z<=LEVEL3) {stat[2]++;
+		return DARK_GREEN*(1-(z-LEVEL2)/float(LEVEL3-LEVEL2))+ROCK_LIGHT*((z-LEVEL2)/float(LEVEL3-LEVEL2))-BLACK*(s/3);
+	}
+	if (z>LEVEL3 and z<=255) {stat[3]++;
+		return ROCK_LIGHT*(1-(z-LEVEL3)/float(255-LEVEL3))+SNOW*5*((z-LEVEL3)/float(255-LEVEL3))-BLACK*(s/3);
+	}
 }
 float Grid::MakeSlope(Uint16 i, Uint16 j) {
 	Uint8 count=0, idx=i*m_size+j, h=m_height[idx];
@@ -156,7 +210,7 @@ float Grid::MakeSlope(Uint16 i, Uint16 j) {
 			count++;
 		}
 	}
-	slope=slope/count;
+	slope=m_scale*slope/count;
 	if (slope < m_min_slope)
 		m_min_slope=slope;
 	if (slope > m_max_slope)

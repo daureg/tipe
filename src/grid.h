@@ -10,13 +10,14 @@
 const Uint16 V__SIZE = 3;
 const Uint16 C__SIZE = 3;
 
-const Color LIGHT_GREEN=Color(.0f,1.0f,.375f);
+const Color SAND_BEACH=Color(1.0f,.875f,.5f);
 const Color PURE_GREEN=Color(.0f,1.0f,.0f);
 const Color DARK_GREEN=Color(.375f,.5f,.0f);
 const Color ROCK_LIGHT=Color(.25f,.5f,.44f);
 const Color SNOW=Color(1.0f,1.0f,.77f);
 const Color BLACK=Color(1.0f,1.0f,1.0);
 
+const Uint8 LEVEL1=64,LEVEL2=112,LEVEL3=146;
 
 class Grid : public Object {
 	public:
@@ -45,6 +46,8 @@ class Grid : public Object {
 		float m_max_slope;
 		float m_min_slope;
 		Uint16 m_size;
+
+		int m_stat[32];
 
 };
 #endif

@@ -14,6 +14,17 @@ Color::Color(const Color &c) {
 }
 Color::~Color() {}
 
+void Color::Change(Uint8 r, Uint8 g, Uint8 b) { 
+	_r=Clamp(r/255.0f,0.0f,1.0f);
+	_g=Clamp(g/255.0f,0.0f,1.0f);
+	_b=Clamp(b/255.0f,0.0f,1.0f);
+}
+void Color::Change(float r, float g, float b) {
+	_r=Clamp(r,0.0f,1.0f);
+	_g=Clamp(g,0.0f,1.0f);
+	_b=Clamp(b,0.0f,1.0f);
+}
+
 Color Color::operator+(const Color &v) const { return Color(1.0f*(v(1)+_r), 1.0f*(v(2)+_g), 1.0f*(v(3)+_b)); }
 Color Color::operator-(const Color &v) const { return Color(_r-v(1),_g-v(2),_b-v(3)); }
 Color Color::operator*(const float &f) const { return Color(f*_r, f*_g, f*_b); }

@@ -47,16 +47,16 @@ void Triangle::Draw() const {
 	memset(m_l2,INF16,SCREEN_SIZE*sizeof(Uint16));
 	memset(m_l3,INF16,SCREEN_SIZE*sizeof(Uint16));
 
-	this->Line(m_vertex[0],m_vertex[1],m_vertex[4],m_vertex[5],m_l1);
-	this->Line(m_vertex[0],m_vertex[1],m_vertex[2],m_vertex[3],m_l2);
-	this->Line(m_vertex[2],m_vertex[3],m_vertex[4],m_vertex[5],m_l3);
+	Line(m_vertex[0],m_vertex[1],m_vertex[4],m_vertex[5],m_l1);
+	Line(m_vertex[0],m_vertex[1],m_vertex[2],m_vertex[3],m_l2);
+	Line(m_vertex[2],m_vertex[3],m_vertex[4],m_vertex[5],m_l3);
 
 	for (j=m_vertex[1];j<=m_vertex[3];j++) {
 		if (m_l1[j]!=INF16 && m_l2[j]!=INF16) {
 			///*
 			xmin = (m_l1[j] < m_l2[j]) ? m_l1[j] : m_l2[j];
 			xmax = (m_l1[j] > m_l2[j]) ? m_l1[j] : m_l2[j];
-			this->DrawSegment(xmin,xmax,j);
+			DrawSegment(xmin,xmax,j);
 			//*/
 			/*
 			glBegin(GL_LINES);
@@ -71,7 +71,7 @@ void Triangle::Draw() const {
 			///*
 			xmin = (m_l1[j] < m_l3[j]) ? m_l1[j] : m_l3[j];
 			xmax = (m_l1[j] > m_l3[j]) ? m_l1[j] : m_l3[j];
-			this->DrawSegment(xmin,xmax,j);
+			DrawSegment(xmin,xmax,j);
 			//*/
 			/*
 			glBegin(GL_LINES);
@@ -116,7 +116,7 @@ void Triangle::Sort() {
 			ymin=m_vertex[2*i+1];
 			k=i;
 		}
-	this->Swap(0,k);
+	Swap(0,k);
 	if (m_vertex[3]>m_vertex[5])
 		Swap(1,2);
 	m_d1=Distance(m_vertex[0],m_vertex[1],m_vertex[4],m_vertex[5]);

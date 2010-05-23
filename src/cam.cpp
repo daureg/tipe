@@ -20,13 +20,13 @@ void Cam::Anim(Uint16 elapsed, Input *ui)
 	if (ui->IsPressed("right"))
 		m_pos = m_pos + m_right * (_speed * elapsed);
 	if (ui->IsPressed("look_left"))
-		this->Turn(UP,rot_speed*elapsed);
+		Turn(UP,rot_speed*elapsed);
 	if (ui->IsPressed("look_right"))
-		this->Turn(UP,-rot_speed*elapsed);
+		Turn(UP,-rot_speed*elapsed);
 	if (ui->IsPressed("look_up"))
-		this->Turn(RIGHT,rot_speed*elapsed);
+		Turn(RIGHT,rot_speed*elapsed);
 	if (ui->IsPressed("look_down"))
-		this->Turn(RIGHT,-rot_speed*elapsed);
+		Turn(RIGHT,-rot_speed*elapsed);
 }
 void Cam::Look() {
 	Vector4 _target = m_pos + m_look;

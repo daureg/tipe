@@ -1,10 +1,10 @@
 #include "perlin.h"
 Perlin::Perlin():m_size(PERLIN_SIZE),m_octaves(5),m_persistance(0.7f),m_period(m_size/2) {
-	this->FillRandom();
+	FillRandom();
 }
 Perlin::Perlin(Uint16 size, Uint8 oct, float per):
 	m_size(size), m_octaves(oct), m_persistance(per), m_period(size/2) {
-	this->FillRandom();
+	FillRandom();
 }
 Perlin::~Perlin() {
 	delete [] m_random;
@@ -15,7 +15,7 @@ Perlin::~Perlin() {
 float Perlin::Noise(Uint16 x, Uint16 y) {
 	float perlin = 0.0f;
 	for(Uint8 i=0; i<m_octaves; i++)
-		perlin += this->InterNoise2D(x*m_2cache[i],y*m_2cache[i]) *m_pcache[i];
+		perlin += InterNoise2D(x*m_2cache[i],y*m_2cache[i]) *m_pcache[i];
 	return perlin;
 }
 float Perlin::InterNoise2D(Uint16 x, Uint16 y) {

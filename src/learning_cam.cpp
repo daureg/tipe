@@ -61,13 +61,13 @@ void LearningCam::Anim(Uint16 elapsed, Input *ui) {
 	if (ui->IsPressed("right"))
 		m_pos = m_pos + m_right * (_speed * elapsed);
 	if (ui->IsPressed("look_left"))
-		this->Turn(UP,rot_speed*elapsed);
+		Turn(UP,rot_speed*elapsed);
 	if (ui->IsPressed("look_right"))
-		this->Turn(UP,-rot_speed*elapsed);
+		Turn(UP,-rot_speed*elapsed);
 	if (ui->IsPressed("look_down"))
-		this->Turn(RIGHT,rot_speed*elapsed);
+		Turn(RIGHT,rot_speed*elapsed);
 	if (ui->IsPressed("look_up"))
-		this->Turn(RIGHT,-rot_speed*elapsed);
+		Turn(RIGHT,-rot_speed*elapsed);
 	if (count%50==0)
 		RemakeBase(); //make sure the base is still orthonormal
 	MakeAlignMatrix();

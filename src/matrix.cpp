@@ -5,7 +5,7 @@ Matrix::Matrix(const float f) {
 	for (Uint8 i=0; i<16; i++)
 			m_coeff[i] = f;
 }
-Matrix::Matrix(float *t) { this->SetCoeff(t);}
+Matrix::Matrix(float *t) { SetCoeff(t);}
 Matrix::~Matrix() {}
 Matrix Matrix::operator+(const Matrix &m) {
 	float tmp[16];
@@ -67,7 +67,7 @@ bool Matrix::LUP(Matrix &L, Matrix &U, Uint8 P[4]) const {
 	float u[16] = {0.0f};
 	float p;
 	Uint8 i,k2,j;
-	this->GetCoeff(a); //Copy the current Matrix data into a
+	GetCoeff(a); //Copy the current Matrix data into a
 	P[0]=0;P[1]=1;P[2]=2;P[3]=3;
 	l[0]=1.0f;l[5]=1.0f;l[10]=1.0f;l[15]=1.0f;
 	for (Uint8 k = 0; k < 4; k++) {

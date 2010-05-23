@@ -9,10 +9,14 @@ class FacetApp : public App {
 		virtual ~FacetApp();
 	private:
 		void Draw();
-		Cam m_cam;
+		LearningCam m_cam;
 		Light m_ambient;
+		Light m_dir;
 		std::vector<Light*> m_lights;
 		Facet m_facet;
+		Uint16 *m_l1;
+		Uint16 *m_l2;
+		Uint16 *m_l3;
 };
 #endif
 

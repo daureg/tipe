@@ -7,6 +7,8 @@ Light::Light(LTYPE type, Color col, Vector4 pos, Vector4 dir) : m_type(type),
 Light::~Light() {}
 
 Vector4 Light::GetDir() const { return m_dir; }
+Vector4 Light::GetPos() const { return m_pos; }
+LTYPE Light::GetType() const { return m_type; }
 Color Light::ReceiveFrom(Vector4 pos) {
 	if (m_type==DIR or m_type==AMBIENT)
 		return m_color;

@@ -18,6 +18,8 @@ class Light {
 		virtual ~Light();
 
 		Vector4 GetDir() const;
+		Vector4 GetPos() const;
+		LTYPE GetType() const;
 		Color ReceiveFrom(Vector4);
 	
 	private:

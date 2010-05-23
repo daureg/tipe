@@ -113,6 +113,7 @@ void Triangle::Sort() {
 	this->Swap(0,k);
 	if (m_vertex[3]>m_vertex[5])
 		Swap(1,2);
+	m_d1=Distance(m_vertex[0],m_vertex[1],m_vertex[4],m_vertex[5]);
 }
 void Triangle::Line(Uint16 xi,Uint16 yi,Uint16 xf,Uint16 yf,Uint16 *px) const {
 	Sint16 dx,dy,cumul,x,y,xinc,yinc,i;
@@ -182,4 +183,6 @@ void Triangle::Print() const {
 	printf("Point %d : (%d,%d), ",1+1,m_vertex[2*1],m_vertex[2*1+1]);m_colors[1].Print();
 	printf("Point %d : (%d,%d), ",2+1,m_vertex[2*2],m_vertex[2*2+1]);m_colors[2].Print();
 }
-
+float Triangle::Distance(Uint16 a,Uint16 b,Uint16 x,Uint16 y) const {
+	return sqrt((x-a)*(x-a)+(y-b)*(y-b));
+}

@@ -1,6 +1,5 @@
 #ifndef __TRIANGLE
 #define __TRIANGLE
-#include <GL/gl.h>
 #include "const.h"
 #include "color.h"
 class Triangle {
@@ -16,6 +15,7 @@ class Triangle {
 		void Print() const;
 
 	private:
+		float Distance(Uint16,Uint16,Uint16,Uint16) const;
 		void DrawSegment(Uint16,Uint16,Uint16) const;
 		void Swap(Uint8,Uint8);
 		void Sort();
@@ -27,5 +27,6 @@ class Triangle {
 		Uint16 *m_l3;
 		Color m_colors[3];
 		bool m_default;
+		float m_d1;
 };
 #endif

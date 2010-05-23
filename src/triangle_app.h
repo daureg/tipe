@@ -2,7 +2,7 @@
 #define __TRIANGLE_APP
 #include "app.h"
 #include "triangle.h"
-const Uint16 NBTR=1;
+const Uint16 NBTR=2;
 class TriangleApp : public App {
 	public:
 		TriangleApp();

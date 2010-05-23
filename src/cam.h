@@ -1,6 +1,5 @@
 #ifndef __CAM
 #define __CAM
-#include "input.h"
 #include "matrix.h"
 #include <GL/glu.h>
 #include "object.h"
@@ -13,7 +12,7 @@ class Cam : public Object {
 		void Move(Vector4*);
 		void Anim(Uint16, Input*);
 		void Look();
-		void Print();
+		void Print() const;
 		void Draw(SDL_Surface*);
 		enum ROTATION_AXIS {
 			RIGHT,

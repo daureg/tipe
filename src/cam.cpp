@@ -64,7 +64,7 @@ void Cam::Turn(ROTATION_AXIS around, float angle) {
 	RemakeBase();
 }
 void Cam::Draw(SDL_Surface *s) {}
-void Cam::Print() {
+void Cam::Print() const {
 	printf("p:");m_pos.Print(); 
 	printf("r:");m_right.Print(); 
 	printf("l:");m_look.Print(); 

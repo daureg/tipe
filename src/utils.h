@@ -1,7 +1,7 @@
 #ifndef __UTILS
 #define __UTILS
 #include <cmath>
-#include <GL/gl.h>
+#include <GL/glew.h>
 #include "const.h"
 
 void Screenshot(SDL_Surface *s=NULL);

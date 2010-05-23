@@ -11,11 +11,11 @@ class Triangle {
 		void SetPoint(Uint16*,Uint16*,Uint16*,Uint16*);
 		void SetColors(Color*,Color*,Color*);
 		void Draw() const;
-		void DrawGL(Uint8) const;
+		void DrawGL() const;
 		void Print() const;
 
 	private:
-		float Distance(Uint16,Uint16,Uint16,Uint16) const;
+		float Distance(Sint16,Sint16,Sint16,Sint16) const;
 		void DrawSegment(Uint16,Uint16,Uint16) const;
 		void Swap(Uint8,Uint8);
 		void Sort();

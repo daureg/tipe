@@ -28,6 +28,7 @@ void Color::Change(float r, float g, float b) {
 Color Color::operator+(const Color &v) const { return Color(1.0f*(v(1)+_r), 1.0f*(v(2)+_g), 1.0f*(v(3)+_b)); }
 Color Color::operator-(const Color &v) const { return Color(_r-v(1),_g-v(2),_b-v(3)); }
 Color Color::operator*(const float &f) const { return Color(f*_r, f*_g, f*_b); }
+Color Color::operator*(const Color &c) const { return Color(c(1)*_r, c(2)*_g, c(3)*_b); }
 bool Color::operator==(const Color &v) const { return (cmp(_r,v(1)) && cmp(_g,v(2)) && cmp(_b,v(3))); }
 bool Color::operator!=(const Color &v) const { return !(cmp(_r,v(1)) && cmp(_g,v(2)) && cmp(_b,v(3))); }
 

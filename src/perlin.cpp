@@ -10,6 +10,7 @@ Perlin::~Perlin() {
 	delete [] m_random;
 	delete [] m_pcache;
 	delete [] m_2cache;
+	delete [] m_ligne;
 }
 
 float Perlin::Noise(Uint16 x, Uint16 y) {
@@ -35,7 +36,7 @@ float Perlin::InterCos2D(float a, float b, float c, float d, float x, float y) {
 void Perlin::FillRandom() {
 	Uint32 i,ii;
 	m_random = new float[m_size*m_size];
-	for (i = 0; i<(Uint32)m_size*m_size; i++) /*{
+	for (i = 0; i<(Uint32)m_size*m_size; i++)/* {
 		i = (i >> 13) ^ i;
 		ii = (i * (i * i * 60493 + 19990303) + 1376312589) & 0x7fffffff;
 		m_random[i] = .5f*((float)ii / 1073741824.0);
@@ -49,5 +50,32 @@ void Perlin::FillRandom() {
 	m_2cache[0]=1;
 	for (i=1; i<m_octaves; i++)
 		m_2cache[i]=2*m_2cache[i-1];
+	m_ligne = new float[m_size];
+	memset(m_ligne,0,m_size*sizeof(m_size));
 }
-
+const Uint16 Y=Random(10,60);
+void Perlin::ligne(int period,bool talk) {
+	int a,b;
+	float r;
+	float p=pow(.7f,log(m_size)/log(2)-log(period)/log(2)-1);
+	for (int i = 0; i < m_size; i++) {
+		if (i%period==0)
+			r=p*m_random[Y*m_size+i];
+		else {
+			a=i-(i%period)+Y*m_size;
+			b=a+period;
+			r=p*InterCos(m_random[a], m_random[b],(i%period)/float(period));
+		}
+		if (talk)
+			printf("%d %f\n",i,r);
+		m_ligne[i]+=r;
+	}
+}
+void Perlin::somme() {
+	float s=1.0f/((1.0f-pow(m_persistance,m_octaves))/(1-m_persistance));
+	printf("%f\n",s);
+	for (int i = 0; i < m_size; i++) {
+		m_ligne[i]*=s;
+		printf("%d %f\n",i,m_ligne[i]);
+	}
+}

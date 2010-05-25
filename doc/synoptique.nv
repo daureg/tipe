@@ -1,0 +1,37 @@
+Je me suis intéressé aux processus mathématiques et algorithmiques qui se cachent derrière la représentation sur la surface d'un écran d'un modèle tridimensionnel.
+L'objectif a donc été de réalisé un programme qui un modèle de relief virtuel avent de l'afficher de manière colorée.
+Création du modèle
+simulation de phénomènes physiques : tectonique, alluvions, émission
+approche récursive
+bruit de Perlin
+Organisation de la scène
+caméra, lumière, objets
+arbre des transformations, coordonnées homogènes
+Projection
+différents types de projection
+matrice de projection
+Illumination
+modèle de couleurs retenu
+sources lumineuses
+coloration, comparaison des méthodes de Gouraud et de Phong
+Rendu
+algorithme du peintre, Z-buffer
+tracé, algorithme de Bren*****
+Analyse des performances
+aspects matériels,, interfaces DirectX, OpenGL
+comparaison d'un dessin manuel contre OpenGL
+- Prise de contact avec M. Martin, discussion sur plusieurs des TP proposés à ses étudiants, choix de la représentation d'un terrain.
+- Recherche d'une méthode efficace de terrain, étude de celles employées dans plusieurs jeux open-source, choix du bruit de Perlin et obtention de cartes de hauteur.
+- Recherche de documentation sur la projection et premier programme affichant une pyramide en «fil de fer».
+- Écriture d'un autre programme qui interpole les couleurs sur un triangle de façon barycentrique.
+- Programme final qui affiche le relief à partir de la carte de hauteur en la colorant suivant l'altitude et la déclivité.
+Contact
+- Dominique Martin, professeur d'informatique à l'université de Nantes
+bibliographie
+Steven C. Dollins : Modeling for the Plausible Emulation of Large Worlds : Brown University : 2002
+Eric Lengyel : Mathematics for 3d Game Programming and Computer Graphics : Charles River Media : 2003
+Frank D. Luna : Introduction to 3d Game Programming With Directx 9.0 : Wordware Publishing Inc. : 2003
+Laurent Testud : DirectX 9, programmation de jeux 3D : Pearson Campuspress : 2005
+Virtual terrain project http://www.vterrain.org/ 
+Cours CS123 de l'université de Brown http://www.cs.brown.edu/courses/cs123
+Cours de RJ de l'université de Besançon http://raphaello.univ-fcomte.fr/IG/

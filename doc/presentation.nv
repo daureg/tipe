@@ -1,0 +1,57 @@
+Synthèse informatique de relief
+Introduction
+Construction
+	du terrain
+	de la scène
+Projection
+Performances
+Illumination et Rendu
+
+Introduction
+imagerie numérique :
+	- conception assistée par ordinateur
+	- formation
+	- simulation
+notions mise en jeux
+exemple d'un tétraèdre et d'un terrain
+
+Construction
+terrain
+méthode classique du bruit de Perlin
+scène
+transformation
+représentées dans R^3 par des matrices
+Problème des translations : P'=PM+T
+Solution : coordonnées homogènes dans R^4
+organisation
+sous forme d'un arbre
+
+Projection
+À l'aide d'une caméra virtuelle : repérée par sa position, son orientation et son angle de vue.
+2 types :
+	- perspective (point de fuite)
+	- parallèle
+Mcaméra transforme la scène pour l'aligner avec la caméra
+
+Affichage et rendu
+couleur : choix physiologique RVB
+sources lumineuses : ambiente, directionnelle, point, spot
+calcul : pour chaque sommet, intensité reçue + propriété du matériau = couleur du sommet
+puis interpolation
+rendu
+algorithme du peintre : tri puis dessin de l'avant vers l'arrière
+problème : conflits
+Z-Buffer
+2 tableaux :
+	- celui des profondeurs
+	- celui des couleurs
+On itère sur chaque facette
+
+Performance
+objet décrit sous formes de facettes triangulaires
+Problème : on en veut le moins possible
+3 échelles
+espace : partition
+octree :cube, arbre, parcours et test
+objet : boîte englobante et lancé de rayon
+facette : signe de n.cam

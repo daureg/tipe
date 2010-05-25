@@ -25,5 +25,6 @@ class App {
 		Input m_input;
 		std::vector<Object*> m_draw_object;
 		std::vector<Object*> m_anim_object;
+		Uint32 m_mode_elapsed;
 };
 #endif

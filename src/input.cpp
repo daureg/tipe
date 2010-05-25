@@ -38,6 +38,9 @@ Input::Input() {
 
 	m_kc["speed"] = SDLK_LSHIFT;
 	m_ks[m_kc["speed"]] = false;
+
+	m_kc["draw_mode"] = SDLK_f;
+	m_ks[m_kc["draw_mode"]] = false;
 }
 Input::~Input() {}
 void Input::ProcessKeyboard(SDL_KeyboardEvent &event) {
@@ -74,4 +77,6 @@ bool Input::IsPressed(std::string action) {
 		return m_ks[m_kc["look_down"]];
 	if (action=="speed")
 		return m_ks[m_kc["speed"]];
+	if (action=="draw_mode")
+		return m_ks[m_kc["draw_mode"]];
 }

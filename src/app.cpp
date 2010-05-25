@@ -1,5 +1,5 @@
 #include "app.h"
-App::App():m_frames(0){
+App::App():m_frames(0),m_mode_elapsed(0) {
 	SDL_Init(SDL_INIT_VIDEO);
 	m_screen = SDL_SetVideoMode(RES_X,RES_Y, 32, SDL_OPENGL);
 	SDL_WM_SetCaption("TIPE", NULL);
@@ -14,6 +14,7 @@ App::~App() {
 }
 int App::Run() {
 	static SDL_Event event;
+	static GLint mode;
 	bool run = GLEW_ARB_vertex_buffer_object;
 	Uint32 last_time,current_time,elapsed_time;
 	last_time = SDL_GetTicks();
@@ -26,10 +27,22 @@ int App::Run() {
 			return EXIT_SUCCESS;
 		if (m_input.IsPressed("screenshot"))
 			Screenshot();
+		if (m_input.IsPressed("draw_mode") && m_mode_elapsed > 1000) {
+			glGetIntegerv(GL_POLYGON_MODE, &mode);
+			if (mode==GL_FILL) {
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				m_mode_elapsed=0;
+			}
+			else {
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				m_mode_elapsed=0;
+			}
+		}
 
 		/* Process object event */		
 		current_time = SDL_GetTicks();
 		elapsed_time = current_time - last_time;
+		m_mode_elapsed += elapsed_time;
 		last_time = current_time;
 		for (size_t i = 0, size = m_anim_object.size(); i < size; ++i)
 			m_anim_object[i]->Anim(elapsed_time,&m_input);

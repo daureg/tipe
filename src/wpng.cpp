@@ -34,7 +34,7 @@ bool Wpng::Write(Uint8 *t) {
 
 	/* make sure outfile is (re)opened in BINARY mode */
 	png_init_io(m_img.png_ptr, m_img.file);
-	png_set_compression_level(m_img.png_ptr, Z_BEST_COMPRESSION);
+	png_set_compression_level(m_img.png_ptr, 6);
 	png_set_IHDR(m_img.png_ptr, m_img.info_ptr, m_img.width, m_img.height,
 			m_img.bit_depth, m_img.color_type, PNG_INTERLACE_NONE,
 			PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);

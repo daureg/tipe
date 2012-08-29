@@ -23,11 +23,13 @@ void Pyramid::Reset() {
 }
 void Pyramid::Move(Vector4 mvt) {
 	m_pos = m_pos + mvt;
-	Transform(&Matrix::Translate(&mvt));
+	Matrix scale = Matrix::Translate(&mvt);
+	Transform(&scale);
 }
 void Pyramid::Scale(float s) {
 	m_height*=s;
-	Transform(&Matrix::Scale(s));
+	Matrix scale = Matrix::Scale(s);
+	Transform(&scale);
 }
 void Pyramid::Transform(Matrix *t) {
 	Vector4 v;

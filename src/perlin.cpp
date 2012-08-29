@@ -59,15 +59,18 @@ void Perlin::ligne(int period,bool talk) {
 	float r;
 	float p=pow(.7f,log(m_size)/log(2)-log(period)/log(2)-1);
 	for (int i = 0; i < m_size; i++) {
-		if (i%period==0)
+		if (i%period==0) {
 			r=p*m_random[Y*m_size+i];
+			if (talk)
+				printf("%d %f %f\n",i,r,r);
+		}
 		else {
 			a=i-(i%period)+Y*m_size;
 			b=a+period;
 			r=p*InterCos(m_random[a], m_random[b],(i%period)/float(period));
+			if (talk)
+				printf("%d %f\n",i,r);
 		}
-		if (talk)
-			printf("%d %f\n",i,r);
 		m_ligne[i]+=r;
 	}
 }

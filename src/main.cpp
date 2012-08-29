@@ -24,7 +24,7 @@ int Help() {
 int main(int argc, char *argv[])
 {
 	Uint8 cur_app = 255;
-	srand(time(NULL));
+	srand(23687);
 	if (argc < 2)
 		return Help();
 	for (Uint8 i=0;i<NAPP;i++)

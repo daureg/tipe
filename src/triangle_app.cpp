@@ -22,11 +22,22 @@ TriangleApp::TriangleApp() {
 	t[2]+=200;
 	t[4]+=200;
 	m_trs[1].SetPoint(t,m_l1,m_l2,m_l3);
+	glClearColor(1.0f,1.0f,1.0f,1.0f);
+
+	m_list = glGenLists(5);
+	glNewList(m_list, GL_COMPILE);
+	glBegin(GL_TRIANGLES);
+	glColor3f(1.0, 0.0, 0.0); glVertex2i(600,200);
+	glColor3f(0.0, 1.0, 0.0); glVertex2i(750,350);
+	glColor3f(0.0, 0.0, 1.0); glVertex2i(600,450);
+	glEnd();
+	glEndList();
 }
 TriangleApp::~TriangleApp() {	
 	delete [] m_l1;
 	delete [] m_l2;
 	delete [] m_l3;
+	glDeleteLists(m_list, 5);
 }
 void TriangleApp::Draw() {
 	m_frames++;
@@ -37,8 +48,9 @@ void TriangleApp::Draw() {
 	for (Uint8 i = 0; i < NBTR; i++)
 	       	m_trs[i].Draw();
 		*/
-	m_trs[0].Draw();
-	m_trs[1].DrawGL();
+	//m_trs[0].Draw();
+	//m_trs[1].DrawGL();
+	glCallList(m_list);
 	glFlush();
 	SDL_GL_SwapBuffers();
 }

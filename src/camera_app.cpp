@@ -1,7 +1,7 @@
 #include "camera_app.h"
 #define BUFFER_OFFSET(a) ((char*)NULL + (a))
 
-CameraApp::CameraApp():m_cam(&Vector4(0,0,5,0)) {
+CameraApp::CameraApp():m_cam(new Vector4(0,0,5,0)) {
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 	gluPerspective(70,(double)RES_X/RES_Y,.1f,100);
